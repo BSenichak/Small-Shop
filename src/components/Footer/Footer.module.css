@@ -1,0 +1,6 @@
+.footer {
+  background-color: var(--tertiary-background);
+  color: var(--tertiary-color);
+  height: 10vh;
+  transition: background-color 0.5s, color 0.5s;
+}

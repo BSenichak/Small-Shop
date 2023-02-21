@@ -1,0 +1,73 @@
+header {
+  background-color: var(--theme-color);
+  color: var(--gray-00);
+}
+
+.linkBar{
+    display: flex;
+    padding: 0 5vw;
+    gap: 2rem;
+    font-size: 0.8rem;
+}
+
+.linkBar a{
+    color: var(--gray-15);
+    text-decoration: none;
+    font-family: 600;
+}
+
+.linkBar a:hover {
+    text-decoration: underline;
+}
+
+.header {
+  height: 7vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5vw;
+}
+
+a.logo {
+  color: var(--gray-00);
+  font-size: 2rem;
+  text-decoration: none;
+}
+
+.btns {
+  display: flex;
+  gap: 1rem;
+  font-size: 1.1rem;
+}
+
+.btns svg {
+  cursor: pointer;
+}
+
+.searchBar {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  background-color: var(--gray-75);
+  padding: 0.1rem 0.5rem;
+  width: 40%;
+}
+
+.searchBar input {
+  background-color: transparent;
+  border: none;
+  color: var(--gray-00);
+  flex-grow: 1;
+}
+
+.searchBar input:focus {
+  outline: none;
+}
+
+.searchBar input::placeholder {
+  font-weight: 1000;
+}
+
+.searchBar svg {
+  cursor: pointer;
+}
