@@ -4,7 +4,7 @@ import s from "./Footer.module.css"
 
 export const Footer = (props) => {
   return (
-    <footer className={s.footer}>Footer</footer>
+    <footer className={s.footer}>&copy; Senychak Bohdan</footer>
   )
 }
 

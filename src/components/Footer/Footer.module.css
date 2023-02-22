@@ -3,4 +3,7 @@
   color: var(--tertiary-color);
   height: 10vh;
   transition: background-color 0.5s, color 0.5s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

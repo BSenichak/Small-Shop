@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
+import Category from "./components/Category/Category";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 import HomePage from "./components/HomePage/HomePage";
@@ -27,7 +28,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage/>}></Route>
           <Route path="/*" element={<NotFound />}></Route>
-
+          <Route path="/category/*" element={<Category/>}></Route>
         </Routes>
       </main>
       <Footer />

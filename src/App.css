@@ -149,8 +149,8 @@ html {
 }
 
 main {
-  min-height: 150vh;
   background-color: var(--secondary-background);
   color: var(--secondary-color);
   transition: background-color 0.5s, color 0.5s;
+  min-height: 85vh;
 }
