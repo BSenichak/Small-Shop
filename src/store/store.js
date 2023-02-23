@@ -6,12 +6,14 @@ import headerReducer from "./header/headerReducer";
 import categoriesReducer from "./home/categories/categoriesReducer";
 import homeReducer from "./home/homeReducer";
 import posterReducer from "./home/poster/posterReducer";
+import productReducer from "./product/productReducer";
 const generalReducer = combineReducers({
     header: headerReducer,
     home: homeReducer,
     poster: posterReducer,
     categories: categoriesReducer,
-    category: categoryReducer
+    category: categoryReducer,
+    product: productReducer
 })
 
 

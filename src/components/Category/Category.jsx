@@ -24,10 +24,12 @@ export const Category = (props) => {
         setMethodType("price");
         setSortType("asc");
         break;
+      default:
+        break;
     }
     console.log(search);
     dispatch(loadCategoryProduct(categoryName, methodType, sortType));
-  }, [dispatch, categoryName, search]);
+  }, [dispatch, categoryName, search, sortType, methodType]);
 
   const products = useSelector((state) => state.category.products);
   const loading = useSelector((state) => state.category.loading);
@@ -57,7 +59,7 @@ export const Category = (props) => {
           </div>
           {products.map((el) => (
             <Link
-              to={`/product/${el.category}/${el.name}`}
+              to={`/product/${el.category}/${el.id}`}
               className={s.item}
               key={el.id}
             >

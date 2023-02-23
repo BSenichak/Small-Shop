@@ -7,6 +7,7 @@ import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 import HomePage from "./components/HomePage/HomePage";
 import NotFound from "./components/NotFound/NotFound";
+import Product from "./components/Product/Product";
 import { setPageTheme } from "./store/header/headerActions";
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
           <Route path="/" element={<HomePage/>}></Route>
           <Route path="/*" element={<NotFound />}></Route>
           <Route path="/category/*" element={<Category/>}></Route>
+          <Route path="/product/*" element={<Product/>}></Route>
         </Routes>
       </main>
       <Footer />
