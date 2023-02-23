@@ -17,6 +17,7 @@ export default function categoryReducer (state=initalState, action){
                 loading: true,
             }
         case FAILED_LOAD_CATEGORY_PRODUCT:
+            console.log(action.payload)
             return {
                 ...state,
                 loading:false,
