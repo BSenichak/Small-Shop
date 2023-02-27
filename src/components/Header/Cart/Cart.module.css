@@ -1,0 +1,102 @@
+.wrapper {
+  position: absolute;
+  z-index: 10;
+  background-color: var(--theme-color);
+  color: var(--gray-00);
+  min-width: 20rem;
+  right: -2rem;
+  padding: 1rem;
+  box-shadow: 0 0 5px var(--blue-light-translucent);
+}
+
+.empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.full div:last-of-type{
+  border: none;
+}
+
+.title {
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid gray;
+  padding: 0.5rem 0;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-basis: 40%;
+}
+
+.item img {
+  height: 3rem;
+}
+
+.item input{
+  background-color: transparent;
+  border: none;
+  width: 2rem;
+  color: white;
+}
+
+.stepper_input {
+  display: flex;
+  border: 1px solid #d1d5db;
+  height: 1.5rem;
+  flex-basis: 10%;
+}
+
+.stepper_input__button {
+  background: #d1d5db;
+  border: none;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  width: 1rem;}
+
+.stepper_input__content {
+  flex: 1;
+}
+
+.stepper_input__input {
+  border: none;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+}
+
+.stepper_input__input:focus {
+  outline: none;
+}
+
+.price {
+  flex-basis: 10%;
+}
+
+.item svg {
+  flex-basis: 5%;
+}
+
+a.orderBtn {
+  display: block;
+  width: 100%;
+  text-align: center;
+  color: var(--gray-00);
+  text-decoration: none;
+  background-color: var(--blue-light-translucent);
+  padding: 0.5rem;
+}

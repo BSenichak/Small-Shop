@@ -3,21 +3,21 @@ header {
   color: var(--gray-00);
 }
 
-.linkBar{
-    display: flex;
-    padding: 0 5vw;
-    gap: 2rem;
-    font-size: 0.8rem;
+.linkBar {
+  display: flex;
+  padding: 0 5vw;
+  gap: 2rem;
+  font-size: 0.8rem;
 }
 
-.linkBar a{
-    color: var(--gray-15);
-    text-decoration: none;
-    font-family: 600;
+.linkBar a {
+  color: var(--gray-15);
+  text-decoration: none;
+  font-family: 600;
 }
 
 .linkBar a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .header {
@@ -38,6 +38,10 @@ a.logo {
   display: flex;
   gap: 1rem;
   font-size: 1.1rem;
+}
+
+.btn {
+  position: relative;
 }
 
 .btns svg {

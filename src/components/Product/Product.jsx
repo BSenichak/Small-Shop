@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
+import { addItemToCart } from "../../store/header/headerActions";
 import { loadProduct } from "../../store/product/productAction";
 import s from "./Product.module.css";
 
@@ -10,6 +11,7 @@ export const Product = (props) => {
   const [category, id] = useLocation().pathname.substring(9).split("/");
   const data = useSelector((state) => state.product.data);
   const loading = useSelector((state) => state.product.loading);
+  const cart= useSelector((state) => state.header.cart);
   useEffect(
     () => dispatch(loadProduct(category, Number(id))),
     [category, id, dispatch]
@@ -23,13 +25,34 @@ export const Product = (props) => {
         </div>
       ) : (
         <div className={s.content}>
-            <div className={s.imageBox}>
-                <img src={`https://firebasestorage.googleapis.com/v0/b/shop-f31e9.appspot.com/o/products%2F${data.category}%2F${data.img}?alt=media&token=1b2febd7-7b3f-4540-907a-4825276053a4`} alt="product" />
+          <div className={s.imageBox}>
+            <img
+              src={`https://firebasestorage.googleapis.com/v0/b/shop-f31e9.appspot.com/o/products%2F${data.category}%2F${data.img}?alt=media&token=1b2febd7-7b3f-4540-907a-4825276053a4`}
+              alt="product"
+            />
+          </div>
+          <div className={s.infoBox}>
+            <h2>{data.name}</h2>
+            <div>${data.price}</div>
+            <div
+              onClick={() =>
+                dispatch(
+                  addItemToCart({
+                    id: data.id,
+                    name: data.name,
+                    price: data.price,
+                    category: data.category,
+                    img: data.img,
+                    count: 1,
+                    order: cart.length,
+                  })
+                )
+              }
+              className={s.buyBtn}
+            >
+              {cart.filter((el) => el.id === data.id).length > 0?"ADDED":"add to cart"}
             </div>
-            <div className={s.infoBox}>
-                <h2>{data.name}</h2>
-                <div>${data.price}</div>
-            </div>
+          </div>
         </div>
       )}
     </div>

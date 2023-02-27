@@ -27,21 +27,30 @@
 }
 
 .content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 2rem 0;
-    max-width: 1024px;
-    margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 2rem 0;
+  max-width: 1024px;
+  margin: 0 auto;
 }
-
 
 .imageBox {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .infoBox {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.buyBtn {
+  font-size: 1.2rem;
+  background-color: var(--highlight-background);
+  color: var(--highlight-color);
+  padding: 0.5rem ;
+  text-transform: uppercase;
+  width: 100%;
+  text-align: center;
 }
