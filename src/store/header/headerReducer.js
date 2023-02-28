@@ -2,12 +2,15 @@ import {
   ADD_ITEM_TO_CART,
   CLEAR_CART,
   CLOSE_CART,
+  CLOSE_USERWINDOW,
   LOAD_CART,
   OPEN_CART,
+  OPEN_USERWINDOW,
   REMOVE_ITEM_FROM_CART,
   SET_PAGE_THEME,
   SWITCH_PAGE_THEME,
   TOGGLE_CART_STATE,
+  TOGGLE_USERWINDOW_STATE,
   UPDATE_ITEM_TO_CART,
 } from "./headerActions";
 
@@ -15,10 +18,12 @@ const initalState = {
   pageTheme: "light",
   cartState: false,
   cart: [],
+  userWindowState: false
 };
 
 export default function headerReducer(state = initalState, action) {
   switch (action.type) {
+    //theme
     case SWITCH_PAGE_THEME:
       window.localStorage.setItem(
         "theme",
@@ -34,6 +39,7 @@ export default function headerReducer(state = initalState, action) {
         ...state,
         pageTheme: action.payload,
       };
+      //cart state
     case TOGGLE_CART_STATE:
       return {
         ...state,
@@ -49,7 +55,8 @@ export default function headerReducer(state = initalState, action) {
         ...state,
         cartState: false,
       };
-    case ADD_ITEM_TO_CART:
+      //cart items
+      case ADD_ITEM_TO_CART:
       if (state.cart.filter((el) => el.id === action.payload.id).length > 0) {
         return state;
       }
@@ -78,6 +85,21 @@ export default function headerReducer(state = initalState, action) {
         ...state,
         cart: window.localStorage.getItem("cart")!== null?JSON.parse(window.localStorage.getItem("cart")):[],
       };
+      case TOGGLE_USERWINDOW_STATE:
+        return {
+          ...state,
+          userWindowState: !state.userWindowState,
+        };
+      case OPEN_USERWINDOW:
+        return {
+          ...state,
+          userWindowState: true,
+        };
+      case CLOSE_USERWINDOW:
+        return {
+          ...state,
+          userWindowState: false,
+        };
     default:
       return state;
   }

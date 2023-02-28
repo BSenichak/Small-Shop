@@ -1,0 +1,33 @@
+.wrapper {
+  position: absolute;
+  z-index: 10;
+  background-color: var(--theme-color);
+  color: var(--gray-00);
+  min-width: 20rem;
+  right: -2rem;
+  padding: 1rem;
+  box-shadow: 0 0 5px var(--blue-light-translucent);
+}
+
+
+.unlogined {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.unlDesc {
+    font-size: 0.6rem;
+    color: var(--gray-45);
+}
+
+a.unlBtn {
+    width: 100%;
+    text-align: center;
+    padding: 0.3rem;
+    background-color: var(--blue-light-translucent);
+    margin-bottom: 1rem;
+    cursor: pointer;
+    color: var(--gray-00);
+    text-decoration: none;
+}

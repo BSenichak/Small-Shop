@@ -11,6 +11,10 @@ export const UPDATE_ITEM_TO_CART = "UPDATE_ITEM_TO_CART";
 export const REMOVE_ITEM_FROM_CART = "REMOVE_ITEM_FROM_CART";
 export const CLEAR_CART = "CLEAR_CART";
 
+export const TOGGLE_USERWINDOW_STATE = "TOGGLE_USERWINDOW_STATE";
+export const OPEN_USERWINDOW = "OPEN_USERWINDOW";
+export const CLOSE_USERWINDOW = "CLOSE_USERWINDOW";
+
 export const switchPageTheme = () => {
   return {
     type: SWITCH_PAGE_THEME,
@@ -45,32 +49,50 @@ export const closeCart = () => {
 export const loadCart = (data) => {
   return {
     type: LOAD_CART,
-    payload: data
+    payload: data,
   };
 };
 export const addItemToCart = (data) => {
   return {
     type: ADD_ITEM_TO_CART,
-    payload: data
+    payload: data,
   };
 };
 
 export const updateItemToCart = (data) => {
   return {
     type: UPDATE_ITEM_TO_CART,
-    payload: data
+    payload: data,
   };
 };
 
 export const removeItemFromCart = (data) => {
   return {
     type: REMOVE_ITEM_FROM_CART,
-    payload: data
+    payload: data,
   };
 };
 
 export const clearCart = () => {
   return {
     type: CLEAR_CART,
+  };
+};
+
+export const toggleUserWindowState = () => {
+  return {
+    type: TOGGLE_USERWINDOW_STATE,
+  };
+};
+
+export const openUserWindow = () => {
+  return {
+    type: TOGGLE_USERWINDOW_STATE,
+  };
+};
+
+export const closeUserWindow = () => {
+  return {
+    type: CLOSE_USERWINDOW,
   };
 };

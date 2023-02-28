@@ -1,0 +1,57 @@
+.wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+}
+
+.imgBox img {
+    width: 80%;
+}
+
+.imgBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 5rem;
+}
+
+.formBox {
+    display: flex;
+    flex-direction: column;
+    padding: 3rem;
+}
+
+.formBox h2{
+    margin-bottom: 2rem;
+}
+
+.input{
+    margin-bottom: 1rem;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid var(--primary-color);
+    color: var(--primary-color);
+}
+
+.input:focus {
+    outline: none;
+}
+
+.btn {
+    width: 100%;
+    background-color: var(--selection-color );
+    padding: 0.3rem;
+    text-align: center;
+    cursor: pointer;
+}
+
+.other {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+}
+
+.other a {
+    color: var(--quaternary-color);
+    font-size: 0.8rem;
+}

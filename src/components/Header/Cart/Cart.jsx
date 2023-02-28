@@ -38,13 +38,13 @@ export const Cart = (props) => {
       count: el.count + 1,
     };
   };
-  const remioveItem = (el) => {
+  const minusItem = (el) => {
     return {
       ...el,
       count: el.count > 0 ? el.count - 1 : 0,
     };
   };
-  const chanheCountItem = (el, cou) => {
+  const changeCountItem = (el, cou) => {
     return {
       ...el,
       count: isNaN(cou) ? 1 : Number(cou),
@@ -68,7 +68,7 @@ export const Cart = (props) => {
               <div className={s.stepper_input}>
                 <button
                   className={s.stepper_input__button}
-                  onClick={() => dispatch(updateItemToCart(remioveItem(el)))}
+                  onClick={() => dispatch(updateItemToCart(minusItem(el)))}
                 >
                   -
                 </button>
@@ -79,7 +79,7 @@ export const Cart = (props) => {
                     value={el.count}
                     onChange={(i) =>
                       dispatch(
-                        updateItemToCart(chanheCountItem(el, i.target.value))
+                        updateItemToCart(changeCountItem(el, i.target.value))
                       )
                     }
                   />

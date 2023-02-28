@@ -8,7 +8,10 @@ import Header from "./components/Header/Header";
 import HomePage from "./components/HomePage/HomePage";
 import NotFound from "./components/NotFound/NotFound";
 import Product from "./components/Product/Product";
-import { setPageTheme } from "./store/header/headerActions";
+import ForgotPassword from "./components/Account/ForgotPassword/ForgotPassword";
+import Login from "./components/Account/Login/Login";
+import Register from "./components/Account/Register/Register";
+import { loadCart, setPageTheme } from "./store/header/headerActions";
 
 function App() {
   const dispatch = useDispatch();
@@ -22,6 +25,9 @@ function App() {
     }
     return () => null;
   });
+  useEffect(()=>{
+    dispatch(loadCart())
+  })
   return (
     <div className="App">
       <Header />
@@ -31,6 +37,9 @@ function App() {
           <Route path="/*" element={<NotFound />}></Route>
           <Route path="/category/*" element={<Category/>}></Route>
           <Route path="/product/*" element={<Product/>}></Route>
+          <Route path="/login" element={<Login/>}></Route>
+          <Route path="/login/forgotpassword" element={<ForgotPassword/>}></Route>
+          <Route path="/register" element={<Register/>}></Route>
         </Routes>
       </main>
       <Footer />
