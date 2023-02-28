@@ -12,6 +12,7 @@ import ForgotPassword from "./components/Account/ForgotPassword/ForgotPassword";
 import Login from "./components/Account/Login/Login";
 import Register from "./components/Account/Register/Register";
 import { loadCart, setPageTheme } from "./store/header/headerActions";
+import { checkLogin } from "./store/account/accountActions";
 
 function App() {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ function App() {
   });
   useEffect(()=>{
     dispatch(loadCart())
+    dispatch(checkLogin())
   })
   return (
     <div className="App">
