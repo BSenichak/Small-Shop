@@ -55,3 +55,12 @@
     color: var(--quaternary-color);
     font-size: 0.8rem;
 }
+
+.password {
+    display: flex;
+    gap: 1rem;
+}
+
+.password input {
+    flex-grow: 1;
+}

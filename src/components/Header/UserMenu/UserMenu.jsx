@@ -9,6 +9,7 @@ export const UserMenu = (props) => {
   const windowRef = useRef(null);
   const dispatch = useDispatch();
   const user = useSelector(state=>state.account.data)
+  const fulldata = useSelector(state=>state.account.fullData)
   useEffect(() => {
     function clickOutsideWindow(event) {
       if (
@@ -31,8 +32,11 @@ export const UserMenu = (props) => {
                 <Link className={s.unlBtn} to={"/register"} onClick={()=>dispatch(closeUserWindow())}>REGISTER</Link>
             </div>
         ):(<div className={s.logined}>
-          <img src={user.photoURL!==null?user.photoURL:"/image/user.svg"} alt="user" />
-          <div>{user.displayName}</div>
+          <img src={fulldata.img!==null?`https://firebasestorage.googleapis.com/v0/b/shop-f31e9.appspot.com/o/userphoto%2F${fulldata.img}?alt=media&token=1b2febd7-7b3f-4540-907a-4825276053a4`:"/image/user.svg"} alt="user" />
+          <div>{fulldata.firstName}</div>
+          <div>{fulldata.secondName}</div>
+          <div>{fulldata.phoneNumber}</div>
+          <div>{fulldata.root==="admin"&&"darova"}</div>
           <div onClick={()=>dispatch(signOutAcc())}>signout</div>
         </div>)}
     </div>

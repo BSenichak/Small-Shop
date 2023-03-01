@@ -45,13 +45,23 @@
     cursor: pointer;
 }
 
-.other {
+.password {
     display: flex;
-    justify-content: space-between;
-    margin-top: 0.5rem;
+    gap: 1rem;
 }
 
-.other a {
-    color: var(--quaternary-color);
-    font-size: 0.8rem;
+.password input {
+    flex-grow: 1;
 }
+
+.errors{
+    display: flex;
+    flex-direction: column;
+    font-size: 0.8rem;
+    color: var(--danger-color);
+}
+
+.activeBtn {
+    background-color: var(--success-background);
+}
+

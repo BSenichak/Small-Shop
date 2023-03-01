@@ -1,9 +1,19 @@
-import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { auth } from "../../plagins/firebase";
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
+import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
+import { auth, db } from "../../plagins/firebase";
 
 export const START_LOGIN = "START_LOGIN";
 export const FAILED_LOGIN = "FAILED_LOGIN";
 export const SUCCESS_LOGIN = "SUCCESS_LOGIN";
+
+export const START_REGISTER = "START_REGISTER";
+export const FAILED_REGISTER = "FAILED_REGISTER";
+export const SUCCESS_REGISTER = "SUCCESS_REGISTER";
 
 export const START_SIGNOUT = "START_SIGNOUT";
 export const FAILED_SIGNOUT = "FAILED_SIGNOUT";
@@ -12,19 +22,20 @@ export const SUCCESS_SIGNOUT = "SUCCESS_SIGNOUT";
 export const START_CHECK_LOGIN = "START_CHECK_LOGIN";
 export const FAILED_CHECK_LOGIN = "FAILED_CHECK_LOGIN";
 export const SUCCESS_CHECK_LOGIN = "SUCCESS_CHECK_LOGIN";
+export const SUCCESS_CHECK_ALLDATA = "SUCCESS_CHECK_ALLDATA";
 
 export const login = (email, password) => {
   return (dispatch) => {
-    dispatch(startLogin())
+    dispatch(startLogin());
     signInWithEmailAndPassword(auth, email, password)
-    .then(data=>{
-        console.log(data)
-        dispatch(successLogin(data))  
-    })
-    .catch(err=>{
-        console.log(err.code)
-        dispatch(failedLogin(err.code))
-    })
+      .then((data) => {
+        console.log(data);
+        dispatch(successLogin(data));
+      })
+      .catch((err) => {
+        console.log(err.code);
+        dispatch(failedLogin(err.code));
+      });
   };
 };
 
@@ -43,23 +54,25 @@ export const failedLogin = (err) => {
 
 export const successLogin = (data) => {
   return {
-    type:SUCCESS_LOGIN,
+    type: SUCCESS_LOGIN,
     payload: data,
   };
 };
 
 export const checkLogin = (user) => {
   return (dispatch) => {
-    dispatch(startCheckLogin())
-    onAuthStateChanged(auth, user=>{
-        if(user){
-            dispatch(successCheckLogin(user))
-            console.clear()
-        }else{
-            dispatch(failedCheckLogin(null))
-        }
-    })
-    
+    dispatch(startCheckLogin());
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        dispatch(successCheckLogin(user));
+        console.clear();
+        getDocs(
+          query(collection(db, "users"), where("uid", "==", user.uid))
+        ).then((data) => dispatch(successCheckAllData(data.docs[0].data())));
+      } else {
+        dispatch(failedCheckLogin(null));
+      }
+    });
   };
 };
 
@@ -78,17 +91,19 @@ export const failedCheckLogin = (err) => {
 
 export const successCheckLogin = (data) => {
   return {
-    type:SUCCESS_CHECK_LOGIN,
+    type: SUCCESS_CHECK_LOGIN,
     payload: data,
   };
 };
 
 export const signOutAcc = () => {
   return (dispatch) => {
-        dispatch(startSignOut())
-        signOut(auth)
-        .then((data)=>dispatch(successSignOut(data)))
-        .catch((err)=>dispatch(failedSignOut(err)))
+    dispatch(startSignOut());
+    signOut(auth)
+      .then((data) => {
+        dispatch(successSignOut(data));
+      })
+      .catch((err) => dispatch(failedSignOut(err)));
   };
 };
 
@@ -107,9 +122,53 @@ export const failedSignOut = (err) => {
 
 export const successSignOut = () => {
   return {
-    type:SUCCESS_SIGNOUT,
+    type: SUCCESS_SIGNOUT,
     payload: null,
   };
 };
 
+export const successCheckAllData = (data) => {
+  return {
+    type: SUCCESS_CHECK_ALLDATA,
+    payload: data,
+  };
+};
 
+export const register = (name, secondname, phonenumber, email, password) => {
+  return (dispatch) => {
+    dispatch(startRegister())
+    createUserWithEmailAndPassword(auth, email, password)
+    .then((data)=>{
+      successRegister(data)
+      addDoc(collection(db, "users"), {
+        firstName: name,
+        secondName: secondname,
+        phoneNumber: phonenumber,
+        root: "user",
+        uid: data.user.uid,
+        img: null
+      })
+    })
+    .catch((err)=>dispatch(failedRegister(err)))
+  };
+};
+
+export const startRegister = () => {
+  return {
+    type: START_REGISTER,
+  }
+}
+
+export const failedRegister = (err) => {
+  return {
+    type: FAILED_REGISTER,
+    payload: err
+  }
+}
+
+export const successRegister = (data) => {
+  return {
+    type: SUCCESS_REGISTER,
+    payload: data
+  }
+}
