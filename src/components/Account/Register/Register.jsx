@@ -6,8 +6,8 @@ import { RxEyeOpen, RxEyeClosed } from "react-icons/rx";
 import { register } from "../../../store/account/accountActions";
 
 export const Register = (props) => {
-  const error = useSelector(state=>state.account.error)
-  const dispatch = useDispatch()
+  const error = useSelector((state) => state.account.error);
+  const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [secondname, setSecondname] = useState("");
   const [phonenumber, setPhonenumber] = useState("");
@@ -20,11 +20,11 @@ export const Register = (props) => {
   const [oneNumeric, setoneNumeric] = useState(false);
   const [passLong, setpassLong] = useState(false);
   const [buttonState, setButtonState] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const user = useSelector((state) => state.account.data);
-  useEffect(()=>{
-    user!==null&&navigate("/")
-  })
+  useEffect(() => {
+    user !== null && navigate("/");
+  });
 
   const checkPassword = (e) => {
     let p = e.target.value;
@@ -134,7 +134,9 @@ export const Register = (props) => {
             checkEmail(e);
           }}
         />
-        {error.code === "auth/email-already-in-use"&&<span className={s.errors}>email already in use</span>}
+        {error?.code === "auth/email-already-in-use" && (
+          <span className={s.errors}>email already in use</span>
+        )}
         <div>PASSWORD:</div>
         <div className={s.password}>
           <input
@@ -172,7 +174,17 @@ export const Register = (props) => {
             <span>The password must be eight characters or longer</span>
           )}
         </div>
-        <div className={`${s.btn} ${buttonState ? s.activeBtn : ""}`} onClick={buttonState?()=>dispatch(register(name, secondname, phonenumber, email, password)):null}>
+        <div
+          className={`${s.btn} ${buttonState ? s.activeBtn : ""}`}
+          onClick={
+            buttonState
+              ? () =>
+                  dispatch(
+                    register(name, secondname, phonenumber, email, password)
+                  )
+              : null
+          }
+        >
           REGISTER AN ACCOUNT
         </div>
       </div>
