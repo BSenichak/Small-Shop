@@ -62,7 +62,7 @@ export const UserMenu = (props) => {
           </div>
           <Link
             className={s.btn}
-            to="/setings"
+            to="/setings/personalinfo"
             onClick={() => dispatch(closeUserWindow())}
           >
             SETINGS

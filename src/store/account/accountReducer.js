@@ -23,6 +23,7 @@ const initalState = {
   data: null,
   fullData: null,
   success: false,
+  uuid: null,
 };
 
 export default function accountReducer(state = initalState, action) {
@@ -89,7 +90,8 @@ export default function accountReducer(state = initalState, action) {
       return {
         ...state,
         loading: false,
-        fullData: action.payload,
+        fullData: action.payload.data(),
+        uuid: action.payload.id,
         error: null,
       };
     case START_REGISTER:

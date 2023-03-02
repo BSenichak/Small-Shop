@@ -3,6 +3,7 @@ import { connect, useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { loadCategoryProduct } from "../../store/category/categotyActions";
 import s from "./Category.module.css";
+import CategoryItem from "./CategoryItem";
 
 export const Category = (props) => {
   const dispatch = useDispatch();
@@ -58,19 +59,7 @@ export const Category = (props) => {
             </Link>
           </div>
           {products.map((el) => (
-            <Link
-              to={`/product/${el.category}/${el.id}`}
-              className={s.item}
-              key={el.id}
-            >
-              <img
-                alt={`cat${el.id}`}
-                src={`https://firebasestorage.googleapis.com/v0/b/shop-f31e9.appspot.com/o/products%2F${el.category}%2F${el.img}?alt=media&token=1b2febd7-7b3f-4540-907a-4825276053a4`}
-                className={s.itemImg}
-              />
-              <div className={s.name}>{el.name}</div>
-              <div className={s.price}>${el.price}</div>
-            </Link>
+            <CategoryItem data={el}/>
           ))}
         </div>
       ) : (

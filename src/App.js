@@ -13,6 +13,7 @@ import Login from "./components/Account/Login/Login";
 import Register from "./components/Account/Register/Register";
 import { loadCart, setPageTheme } from "./store/header/headerActions";
 import { checkLogin } from "./store/account/accountActions";
+import UserSetings from "./components/Account/UserSetings/UserSetings";
 
 function App() {
   const dispatch = useDispatch();
@@ -42,7 +43,7 @@ function App() {
           <Route path="/login" element={<Login/>}></Route>
           <Route path="/login/forgotpassword" element={<ForgotPassword/>}></Route>
           <Route path="/register" element={<Register/>}></Route>
-          <Route path="/setings" element={"setings"}></Route>
+          <Route path="/setings/*" element={<UserSetings/>}></Route>
         </Routes>
       </main>
       <Footer />

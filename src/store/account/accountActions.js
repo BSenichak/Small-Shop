@@ -70,10 +70,10 @@ export const checkLogin = (user) => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         dispatch(successCheckLogin(user));
-        console.clear();
+        // console.clear();
         getDocs(
           query(collection(db, "users"), where("uid", "==", user.uid))
-        ).then((data) => dispatch(successCheckAllData(data.docs[0].data())));
+        ).then((data) => dispatch(successCheckAllData(data.docs[0])));
       } else {
         dispatch(failedCheckLogin(null));
       }
@@ -151,7 +151,10 @@ export const register = (name, secondname, phonenumber, email, password) => {
         phoneNumber: phonenumber,
         root: "user",
         uid: data.user.uid,
-        img: null
+        img: null,
+        middlename: null,
+        dob: null,
+        gender: null
       })
     })
     .catch((err)=>dispatch(failedRegister(err)))

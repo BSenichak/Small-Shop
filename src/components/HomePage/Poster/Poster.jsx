@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { loadPosters } from "../../../store/home/poster/posterActions";
 import s from "./Poster.module.css";
+import PosterItem from "./PosterItem";
 
 export const Poster = (props) => {
   const dispatch = useDispatch();
@@ -32,7 +33,8 @@ export const Poster = (props) => {
         <div className={s.bg}>
           <div className={s.posterSlider} style={{ left: `-${number}00%` }}>
             {posters.map((el) => (
-              <img src={el.link} key={el.id} alt={`poster${el.id}`} />
+              // <img src={el.link} key={el.id} alt={`poster${el.id}`} />
+              <PosterItem data={el}/>
             ))}
           </div>
         </div>
