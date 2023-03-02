@@ -1,8 +1,10 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { signOutAcc } from "../../../store/account/accountActions";
 import { closeUserWindow } from "../../../store/header/headerActions";
+import { getDownloadURL, ref,  } from "firebase/storage";
+import { storage } from "../../../plagins/firebase";
 import s from "./UserMenu.module.css";
 
 export const UserMenu = (props) => {
@@ -10,6 +12,7 @@ export const UserMenu = (props) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.account.data);
   const fulldata = useSelector((state) => state.account.fullData);
+  const [image, setImage] = useState("");
   useEffect(() => {
     function clickOutsideWindow(event) {
       if (
@@ -21,6 +24,12 @@ export const UserMenu = (props) => {
     document.addEventListener("click", clickOutsideWindow);
     return () => document.removeEventListener("click", clickOutsideWindow);
   }, [windowRef, dispatch, props.btn]);
+
+  useEffect(()=>{
+    getDownloadURL(
+      ref(storage, `userphoto/${fulldata?.img}`)
+    ).then((url) => setImage(url));
+  })
 
   return (
     <div className={s.wrapper}>
@@ -49,7 +58,7 @@ export const UserMenu = (props) => {
             <img
               src={
                 fulldata.img !== null
-                  ? `https://firebasestorage.googleapis.com/v0/b/shop-f31e9.appspot.com/o/userphoto%2F${fulldata.img}?alt=media&token=1b2febd7-7b3f-4540-907a-4825276053a4`
+                  ? image
                   : "/image/user.svg"
               }
               alt="user"
