@@ -76,7 +76,7 @@ export const Personalinfo = (props) => {
     fullData?.middlename && setMiddlename(fullData?.middlename);
     fullData?.dob && setDOB(fullData?.dob);
     fullData?.gender && setGender(fullData?.gender);
-    getDownloadURL(ref(storage, `userphoto/${fullData.img}`)).then((url) =>
+    getDownloadURL(ref(storage, `userphoto/${fullData?.img}`)).then((url) =>
       setCurrentimg(url)
     );
   }, [fullData]);
