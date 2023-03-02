@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { login } from "../../../store/account/accountActions";
+import { login, startPasswordReset } from "../../../store/account/accountActions";
 import s from "./Login.module.css";
 import { RxEyeOpen, RxEyeClosed} from "react-icons/rx"
 
@@ -51,7 +51,7 @@ export const Login = (props) => {
         </div>
         {error !== null && <div>User not found</div>}
         <div className={s.other}>
-          <Link to={"forgotpassword"}>Forgot my password</Link>
+          <Link to={"forgotpassword"} onClick={()=>dispatch(startPasswordReset())}>Forgot my password</Link>
           <Link to={"/register"}>Don`t have account</Link>
         </div>
       </div>

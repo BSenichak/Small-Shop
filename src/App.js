@@ -42,6 +42,7 @@ function App() {
           <Route path="/login" element={<Login/>}></Route>
           <Route path="/login/forgotpassword" element={<ForgotPassword/>}></Route>
           <Route path="/register" element={<Register/>}></Route>
+          <Route path="/setings" element={"setings"}></Route>
         </Routes>
       </main>
       <Footer />

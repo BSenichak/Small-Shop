@@ -1,15 +1,18 @@
 import {
   FAILED_CHECK_LOGIN,
   FAILED_LOGIN,
+  FAILED_PASSWORD_RESET,
   FAILED_REGISTER,
   FAILED_SIGNOUT,
   START_CHECK_LOGIN,
   START_LOGIN,
+  START_PASSWORD_RESET,
   START_REGISTER,
   START_SIGNOUT,
   SUCCESS_CHECK_ALLDATA,
   SUCCESS_CHECK_LOGIN,
   SUCCESS_LOGIN,
+  SUCCESS_PASSWORD_RESET,
   SUCCESS_REGISTER,
   SUCCESS_SIGNOUT,
 } from "./accountActions";
@@ -18,7 +21,8 @@ const initalState = {
   loading: false,
   error: null,
   data: null,
-  fullData: null
+  fullData: null,
+  success: false,
 };
 
 export default function accountReducer(state = initalState, action) {
@@ -79,7 +83,7 @@ export default function accountReducer(state = initalState, action) {
         loading: false,
         data: action.payload,
         error: null,
-        fullData: null
+        fullData: null,
       };
     case SUCCESS_CHECK_ALLDATA:
       return {
@@ -92,20 +96,39 @@ export default function accountReducer(state = initalState, action) {
       return {
         ...state,
         loading: true,
-        error: null
-      }
+        error: null,
+      };
     case FAILED_REGISTER:
       return {
         ...state,
         loading: false,
-        error: action.payload
-      }
+        error: action.payload,
+      };
     case SUCCESS_REGISTER:
       return {
         ...state,
         loading: false,
-      }
-
+      };
+    case START_PASSWORD_RESET:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+        success: false
+      };
+    case FAILED_PASSWORD_RESET:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload.code,
+        success: false
+      };
+    case SUCCESS_PASSWORD_RESET:
+      return {
+        ...state,
+        loading: false,
+        success: true
+      };
     default:
       return state;
   }

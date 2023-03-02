@@ -1,6 +1,7 @@
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
@@ -23,6 +24,10 @@ export const START_CHECK_LOGIN = "START_CHECK_LOGIN";
 export const FAILED_CHECK_LOGIN = "FAILED_CHECK_LOGIN";
 export const SUCCESS_CHECK_LOGIN = "SUCCESS_CHECK_LOGIN";
 export const SUCCESS_CHECK_ALLDATA = "SUCCESS_CHECK_ALLDATA";
+
+export const START_PASSWORD_RESET = "START_PASSWORD_RESET"
+export const FAILED_PASSWORD_RESET = "FAILED_PASSWORD_RESET"
+export const SUCCESS_PASSWORD_RESET = "SUCCESS_PASSWORD_RESET"
 
 export const login = (email, password) => {
   return (dispatch) => {
@@ -170,5 +175,37 @@ export const successRegister = (data) => {
   return {
     type: SUCCESS_REGISTER,
     payload: data
+  }
+}
+
+export const passwordReset = (email) => {
+  return dispatch => {
+    dispatch(startPasswordReset())
+    sendPasswordResetEmail(auth, email)
+    .then(()=>{
+      dispatch(SuccessPasswordReset())
+    })
+    .catch((err)=>{
+      dispatch(failedPasswordReset(err))
+    })
+  }
+}
+
+export const startPasswordReset = () =>{
+  return {
+    type: START_PASSWORD_RESET,
+  }
+}
+
+export const failedPasswordReset = (err) =>{
+  return {
+    type: FAILED_PASSWORD_RESET,
+    payload: err
+  }
+}
+
+export const SuccessPasswordReset = () =>{
+  return {
+    type: SUCCESS_PASSWORD_RESET,
   }
 }

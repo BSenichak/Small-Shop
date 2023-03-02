@@ -31,3 +31,37 @@ a.unlBtn {
     color: var(--gray-00);
     text-decoration: none;
 }
+
+
+.userinfo {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.userinfo img{
+    width: 5rem;
+}
+
+.userData {
+    flex-grow: 1;
+}
+
+.btn {
+    width: 100%;
+    background-color: var(--selection-color );
+    padding: 0.3rem;
+    text-align: center;
+    cursor: pointer;
+    display: block;
+    text-decoration: none;
+    color: var(--gray-00);
+    margin: 0.3rem 0;
+    transition: background-color 0.5s;
+}
+
+.btn:hover {
+    background-color: var(--success-background);
+    color: var(--success-color);
+}
+
