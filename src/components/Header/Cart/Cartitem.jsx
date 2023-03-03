@@ -8,11 +8,14 @@ import {
 } from "../../../store/header/headerActions";
 import { getDownloadURL, ref } from "firebase/storage";
 import { storage } from "../../../plagins/firebase";
+import Loader from "../../Loader/Loader";
 
 export const Cartitem = (props) => {
   const dispatch = useDispatch();
 
   const [image, setImage] = useState("");
+  const [imageLoading, setImageLoading] = useState(true);
+
   useEffect(() => {
     getDownloadURL(
       ref(storage, `products/${props.el.category}/${props.el.img}`)
@@ -39,7 +42,13 @@ export const Cartitem = (props) => {
   return (
     <div key={props.el.id} className={s.item}>
       <div className={s.info}>
-        <img src={image} alt={props.el.name} />
+        {imageLoading && <Loader />}
+        <img
+          src={image}
+          alt={props.el.name}
+          style={imageLoading ? { display: "none" } : {}}
+          onLoad={() => setImageLoading(false)}
+        />
         <div>{props.el.name}</div>
       </div>
       <div className={s.stepper_input}>

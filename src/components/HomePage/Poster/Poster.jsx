@@ -33,8 +33,7 @@ export const Poster = (props) => {
         <div className={s.bg}>
           <div className={s.posterSlider} style={{ left: `-${number}00%` }}>
             {posters.map((el) => (
-              // <img src={el.link} key={el.id} alt={`poster${el.id}`} />
-              <PosterItem data={el}/>
+              <PosterItem data={el} key={el.id}/>
             ))}
           </div>
         </div>

@@ -3,9 +3,10 @@ import { connect, useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { signOutAcc } from "../../../store/account/accountActions";
 import { closeUserWindow } from "../../../store/header/headerActions";
-import { getDownloadURL, ref,  } from "firebase/storage";
+import { getDownloadURL, ref } from "firebase/storage";
 import { storage } from "../../../plagins/firebase";
 import s from "./UserMenu.module.css";
+import Loader from "../../Loader/Loader";
 
 export const UserMenu = (props) => {
   const windowRef = useRef(null);
@@ -13,6 +14,7 @@ export const UserMenu = (props) => {
   const user = useSelector((state) => state.account.data);
   const fulldata = useSelector((state) => state.account.fullData);
   const [image, setImage] = useState("");
+  const [imageLoading, setImageLoading] = useState(true);
   useEffect(() => {
     function clickOutsideWindow(event) {
       if (
@@ -25,11 +27,11 @@ export const UserMenu = (props) => {
     return () => document.removeEventListener("click", clickOutsideWindow);
   }, [windowRef, dispatch, props.btn]);
 
-  useEffect(()=>{
-    getDownloadURL(
-      ref(storage, `userphoto/${fulldata?.img}`)
-    ).then((url) => setImage(url));
-  })
+  useEffect(() => {
+    getDownloadURL(ref(storage, `userphoto/${fulldata?.img}`)).then((url) =>
+      setImage(url)
+    );
+  });
 
   return (
     <div className={s.wrapper}>
@@ -55,13 +57,12 @@ export const UserMenu = (props) => {
       ) : (
         <div className={s.logined}>
           <div className={s.userinfo}>
+            {imageLoading&&<Loader/>}
             <img
-              src={
-                fulldata.img !== null
-                  ? image
-                  : "/image/user.svg"
-              }
+              src={fulldata.img !== null ? image : "/image/user.svg"}
               alt="user"
+              style={imageLoading ? { display: "none" } : {}}
+              onLoad={() => setImageLoading(false)}
             />
             <div className={s.userData}>
               <div>{fulldata.firstName}</div>

@@ -5,16 +5,17 @@ import { storage } from "../../../plagins/firebase";
 
 export const PosterItem = (props) => {
   const [image, setImage] = useState("");
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     getDownloadURL(
       ref(storage, `posters/${props.data.link}`)
     ).then((url) => setImage(url));
   });
   return (
-    <img
+    <img style={loading?{display: "none"}:{}}
       src={image}
-      key={props.data.id}
       alt={`poster${props.data.id}`}
+      onLoad={()=>setLoading(false)}
     />
   );
 };
