@@ -83,13 +83,13 @@ export const successUpdateUserPersonalInfo = () => {
 
 export const updateUserContactData = (
   uuid,
-  phoneNumber,
-  homeCity,
-  homeStreet,
-  homehouse,
-  homeflat,
-  postCity,
-  postNumber
+  phoneNumber = "",
+  homeCity = "",
+  homeStreet = "",
+  homehouse = "",
+  homeflat = "",
+  postCity = "",
+  postNumber= ""
 ) => {
   return (dispatch) => {
     dispatch(startUpdateUserContactData());

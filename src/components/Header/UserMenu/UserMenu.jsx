@@ -59,15 +59,15 @@ export const UserMenu = (props) => {
           <div className={s.userinfo}>
             {imageLoading&&<Loader/>}
             <img
-              src={fulldata.img !== null ? image : "/image/user.svg"}
+              src={fulldata?.img !== null ? image : "/image/user.svg"}
               alt="user"
               style={imageLoading ? { display: "none" } : {}}
               onLoad={() => setImageLoading(false)}
             />
             <div className={s.userData}>
-              <div>{fulldata.firstName}</div>
-              <div>{fulldata.secondName}</div>
-              <div>{fulldata.phoneNumber}</div>
+              <div>{fulldata?.firstName}</div>
+              <div>{fulldata?.secondName}</div>
+              <div>{fulldata?.phoneNumber}</div>
             </div>
           </div>
           <Link
@@ -77,7 +77,7 @@ export const UserMenu = (props) => {
           >
             SETINGS
           </Link>
-          {fulldata.root === "admin" && (
+          {fulldata?.root === "admin" && (
             <Link
               className={s.btn}
               to="/admin"
