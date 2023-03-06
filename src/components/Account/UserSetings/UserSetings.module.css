@@ -80,3 +80,18 @@
 .activeBtn {
     background-color: var(--success-background);
 }
+
+.homeAddressWrapper {
+    display: flex;
+    gap: 3rem;
+    margin-bottom: 2rem;
+}
+
+.formItem {
+    display: flex;
+    flex-direction: column;
+}
+
+.titleSection {
+    margin-bottom: 1rem;
+}

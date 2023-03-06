@@ -20,6 +20,7 @@ export const Personalinfo = (props) => {
   const [gender, setGender] = useState("");
   const [btnState, setBtnState] = useState(false);
   const [currentimg, setCurrentimg] = useState("");
+  const [imgLoading, setImgLoading] = useState(true)
 
   const nameChange = (e) => {
     setName(e.target.value);
@@ -90,7 +91,9 @@ export const Personalinfo = (props) => {
                 ? currentimg
                 : "/image/user.svg"
             }
+			style={imgLoading?{display: "none"}:{}}
             alt="sss"
+			onLoad={()=>setImgLoading(false)}
           />
         )}
         <div className={s.imgDesc}>

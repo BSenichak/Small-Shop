@@ -14,6 +14,12 @@ export const FAILED_UPDATE_USER_PERSONAL_INFO =
 export const SUCCESS_UPDATE_USER_PERSONAL_INFO =
   "SUCCESS_UPDATE_USER_PERSONAL_INFO";
 
+export const START_UPDATE_USER_CONTACT_DATA = "START_UPDATE_USER_CONTACT_DATA";
+export const FAILED_UPDATE_USER_CONTACT_DATA =
+  "FAILED_UPDATE_USER_CONTACT_DATA";
+export const SUCCESS_UPDATE_USER_CONTACT_DATA =
+  "SUCCESS_UPDATE_USER_CONTACT_DATA";
+
 export const updateUserPersonalInfo = (
   link,
   file,
@@ -48,12 +54,11 @@ export const updateUserPersonalInfo = (
       gender,
       dob,
     })
-      .then(()=>dispatch(successUpdateUserPersonalInfo()))
+      .then(() => dispatch(successUpdateUserPersonalInfo()))
       .catch((err) => dispatch(failedUpdateUserPersonalInfo(err)));
     setTimeout(() => {
-        dispatch(checkLogin());
-    }, 2000); 
-    
+      dispatch(checkLogin());
+    }, 2000);
   };
 };
 
@@ -73,5 +78,53 @@ export const failedUpdateUserPersonalInfo = (err) => {
 export const successUpdateUserPersonalInfo = () => {
   return {
     type: SUCCESS_UPDATE_USER_PERSONAL_INFO,
+  };
+};
+
+export const updateUserContactData = (
+  uuid,
+  phoneNumber,
+  homeCity,
+  homeStreet,
+  homehouse,
+  homeflat,
+  postCity,
+  postNumber
+) => {
+  return (dispatch) => {
+    dispatch(startUpdateUserContactData());
+    updateDoc(doc(db, "users", uuid), {
+      phoneNumber,
+      homeCity,
+      homeStreet,
+      homehouse,
+      homeflat,
+      postCity,
+      postNumber,
+    })
+      .then(() => dispatch(successUpdateUserContactData()))
+      .catch((err) => dispatch(failedUpdateUserContactData(err)));
+    setTimeout(() => {
+      dispatch(checkLogin());
+    }, 2000);
+  };
+};
+
+export const startUpdateUserContactData = () => {
+  return {
+    type: START_UPDATE_USER_CONTACT_DATA,
+  };
+};
+
+export const failedUpdateUserContactData = (err) => {
+  return {
+    type: FAILED_UPDATE_USER_CONTACT_DATA,
+    payload: err,
+  };
+};
+
+export const successUpdateUserContactData = () => {
+  return {
+    type: SUCCESS_UPDATE_USER_CONTACT_DATA,
   };
 };

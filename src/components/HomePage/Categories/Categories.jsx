@@ -18,7 +18,7 @@ export const Categories = (props) => {
       <div className={s.title}>Categories</div>
       {!isLoading ? (
         categories.map((el) => (
-          <CatItem data={el}/>
+          <CatItem data={el} key={el.id}/>
         ))
       ) : (
         <div className={s.spinnerWrapper}>
