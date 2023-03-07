@@ -3,6 +3,8 @@ import { uploadBytes, ref } from "firebase/storage";
 import { db, storage } from "../../../plagins/firebase";
 import { checkLogin } from "../accountActions";
 
+export const SUCCESS_OFF = "SUCCESS_OFF";
+
 export const START_SET_USER_PHOTO = "START_SET_USER_PHOTO";
 export const FAILED_SET_USER_PHOTO = "FAILED_SET_USER_PHOTO";
 export const SUCCESS_SET_USER_PHOTO = "SUCCESS_SET_USER_PHOTO";
@@ -126,5 +128,11 @@ export const failedUpdateUserContactData = (err) => {
 export const successUpdateUserContactData = () => {
   return {
     type: SUCCESS_UPDATE_USER_CONTACT_DATA,
+  };
+};
+
+export const successOff = () => {
+  return {
+    type: SUCCESS_OFF,
   };
 };

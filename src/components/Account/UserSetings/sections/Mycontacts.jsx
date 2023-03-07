@@ -2,10 +2,14 @@ import React, { useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { updateUserContactData } from "../../../../store/account/setings/setingActions";
 import s from "../UserSetings.module.css";
+import DotsLoader from "../../../Loader/DotsLoader";
+
 
 export const Mycontacts = (props) => {
   const dispatch = useDispatch();
   const fullData = useSelector((state) => state.account.fullData);
+  const load = useSelector((state) => state.setings.loading);
+
 
   useEffect(()=>{
     setMobileNumber(fullData?.phoneNumber)
@@ -136,6 +140,11 @@ export const Mycontacts = (props) => {
       >
         SAVE
       </div>
+      {load && (
+        <div className={s.loaderWrapper}>
+          <DotsLoader />
+        </div>
+      )}
     </div>
   );
 };

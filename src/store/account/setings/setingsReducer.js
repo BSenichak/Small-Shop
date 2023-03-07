@@ -1,6 +1,10 @@
-import { FAILED_UPDATE_USER_CONTACT_DATA, FAILED_UPDATE_USER_PERSONAL_INFO, START_UPDATE_USER_CONTACT_DATA, START_UPDATE_USER_PERSONAL_INFO, SUCCESS_UPDATE_USER_CONTACT_DATA, SUCCESS_UPDATE_USER_PERSONAL_INFO } from "./setingActions";
+import { FAILED_UPDATE_USER_CONTACT_DATA, FAILED_UPDATE_USER_PERSONAL_INFO, START_UPDATE_USER_CONTACT_DATA, START_UPDATE_USER_PERSONAL_INFO, SUCCESS_OFF, SUCCESS_UPDATE_USER_CONTACT_DATA, SUCCESS_UPDATE_USER_PERSONAL_INFO } from "./setingActions";
 
-const initalState = {};
+const initalState = {
+  loading: false,
+  error: null,
+  success: false
+};
 
 export default function setingsReducer(state = initalState, action) {
   switch (action.type) {
@@ -41,6 +45,11 @@ export default function setingsReducer(state = initalState, action) {
         ...state,
         loading: false,
         success: true,
+      };
+    case SUCCESS_OFF:
+      return {
+        ...state,
+        success: false,
       };
     default:
       return state;

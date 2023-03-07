@@ -2,15 +2,22 @@ import React, { useEffect, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import s from "../UserSetings.module.css";
 import { useSelector } from "react-redux";
-import { updateUserPersonalInfo } from "../../../../store/account/setings/setingActions";
+import {
+  // successOff,
+  updateUserPersonalInfo,
+} from "../../../../store/account/setings/setingActions";
 import { getDownloadURL, ref } from "firebase/storage";
 import { storage } from "../../../../plagins/firebase";
+import DotsLoader from "../../../Loader/DotsLoader";
+// import Check from "../../../Loader/Check";
 
 export const Personalinfo = (props) => {
   const dispatch = useDispatch();
   const fullData = useSelector((state) => state.account.fullData);
   const uuid = useSelector((state) => state.account.uuid);
   const loading = useSelector((state) => state.account.loading);
+  const load = useSelector((state) => state.setings.loading);
+  // const success = useSelector((state) => state.setings.success);
   const [name, setName] = useState("");
   const [img, setImg] = useState("");
   const [imgfile, setImgFile] = useState("");
@@ -20,7 +27,7 @@ export const Personalinfo = (props) => {
   const [gender, setGender] = useState("");
   const [btnState, setBtnState] = useState(false);
   const [currentimg, setCurrentimg] = useState("");
-  const [imgLoading, setImgLoading] = useState(true)
+  const [imgLoading, setImgLoading] = useState(true);
 
   const nameChange = (e) => {
     setName(e.target.value);
@@ -81,6 +88,8 @@ export const Personalinfo = (props) => {
       setCurrentimg(url)
     );
   }, [fullData]);
+
+
   return (
     <div className={s.personalWrapper}>
       <div className={s.imagebar}>
@@ -91,9 +100,9 @@ export const Personalinfo = (props) => {
                 ? currentimg
                 : "/image/user.svg"
             }
-			style={imgLoading?{display: "none"}:{}}
+            style={imgLoading ? { display: "none" } : {}}
             alt="sss"
-			onLoad={()=>setImgLoading(false)}
+            onLoad={() => setImgLoading(false)}
           />
         )}
         <div className={s.imgDesc}>
@@ -185,6 +194,13 @@ export const Personalinfo = (props) => {
       >
         SAVE
       </div>
+      {load && (
+        <div className={s.loaderWrapper}>
+          <DotsLoader />
+        </div>
+      )}
+      {}
+      {/* {success && <Check />} */}
     </div>
   );
 };
