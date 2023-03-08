@@ -2,14 +2,10 @@ import React, { useEffect, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import s from "../UserSetings.module.css";
 import { useSelector } from "react-redux";
-import {
-  // successOff,
-  updateUserPersonalInfo,
-} from "../../../../store/account/setings/setingActions";
+import { updateUserPersonalInfo } from "../../../../store/account/setings/setingActions";
 import { getDownloadURL, ref } from "firebase/storage";
 import { storage } from "../../../../plagins/firebase";
 import DotsLoader from "../../../Loader/DotsLoader";
-// import Check from "../../../Loader/Check";
 
 export const Personalinfo = (props) => {
   const dispatch = useDispatch();
@@ -17,7 +13,6 @@ export const Personalinfo = (props) => {
   const uuid = useSelector((state) => state.account.uuid);
   const loading = useSelector((state) => state.account.loading);
   const load = useSelector((state) => state.setings.loading);
-  // const success = useSelector((state) => state.setings.success);
   const [name, setName] = useState("");
   const [img, setImg] = useState("");
   const [imgfile, setImgFile] = useState("");
@@ -88,7 +83,6 @@ export const Personalinfo = (props) => {
       setCurrentimg(url)
     );
   }, [fullData]);
-
 
   return (
     <div className={s.personalWrapper}>
@@ -175,7 +169,7 @@ export const Personalinfo = (props) => {
       </div>
       <div
         className={`${s.btn} ${btnState ? s.activeBtn : ""}`}
-        onClick={() =>
+        onClick={() => {
           dispatch(
             updateUserPersonalInfo(
               img,
@@ -189,8 +183,12 @@ export const Personalinfo = (props) => {
               dob,
               gender
             )
-          )
-        }
+          );
+          setBtnState(false);
+          [...document.getElementsByClassName(s.input)].forEach((element) => {
+            element.style.borderColor = "var(--primary-color)";
+          });
+        }}
       >
         SAVE
       </div>
@@ -199,8 +197,6 @@ export const Personalinfo = (props) => {
           <DotsLoader />
         </div>
       )}
-      {}
-      {/* {success && <Check />} */}
     </div>
   );
 };
