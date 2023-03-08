@@ -4,22 +4,20 @@ import { updateUserContactData } from "../../../../store/account/setings/setingA
 import s from "../UserSetings.module.css";
 import DotsLoader from "../../../Loader/DotsLoader";
 
-
 export const Mycontacts = (props) => {
   const dispatch = useDispatch();
   const fullData = useSelector((state) => state.account.fullData);
   const load = useSelector((state) => state.setings.loading);
 
-
-  useEffect(()=>{
-    setMobileNumber(fullData?.phoneNumber)
-    sethomeCity(fullData?.homeCity)
-    sethomeStreet(fullData?.homeStreet)
-    sethomehouse(fullData?.homehouse)
-    sethomeflat(fullData?.homeflat)
-    setpostCity(fullData?.postCity)
-    setpostNumber(fullData?.postNumber)
-  },[fullData])
+  useEffect(() => {
+    setMobileNumber(fullData?.phoneNumber);
+    sethomeCity(fullData?.homeCity);
+    sethomeStreet(fullData?.homeStreet);
+    sethomehouse(fullData?.homehouse);
+    sethomeflat(fullData?.homeflat);
+    setpostCity(fullData?.postCity);
+    setpostNumber(fullData?.postNumber);
+  }, [fullData]);
 
   const [mobileNumber, setMobileNumber] = useState("");
   const [homeCity, sethomeCity] = useState("");
@@ -122,7 +120,7 @@ export const Mycontacts = (props) => {
         className={`${s.btn} ${btnState ? s.activeBtn : ""}`}
         onClick={
           btnState
-            ? () =>
+            ? () => {
                 dispatch(
                   updateUserContactData(
                     uuid,
@@ -134,7 +132,14 @@ export const Mycontacts = (props) => {
                     postCity,
                     postNumber
                   )
-                )
+                );
+                setBtnState(false);
+                [...document.getElementsByClassName(s.input)].forEach(
+                  (element) => {
+                    element.style.borderColor = "var(--primary-color)";
+                  }
+                );
+              }
             : null
         }
       >
