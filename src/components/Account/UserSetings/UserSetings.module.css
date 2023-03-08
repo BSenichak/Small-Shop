@@ -113,4 +113,17 @@
   backdrop-filter: blur(5px);
 }
 
+.emailSection {
+  display: flex;
+  gap: 2rem;
+  margin: 1rem 0;
+}
+
+.errors{
+  display: flex;
+  flex-direction: column;
+  font-size: 0.8rem;
+  color: var(--danger-color);
+}
+
 
