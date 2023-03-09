@@ -3,7 +3,10 @@ import { connect } from 'react-redux'
 
 export const Wishlist = (props) => {
   return (
-    <div>Wishlist</div>
+    <div>
+      <h1>in the development</h1>
+      <img src="/image/development.svg" alt="development" style={{width: "50%", margin: "2rem auto"}}/>
+    </div>
   )
 }
 
