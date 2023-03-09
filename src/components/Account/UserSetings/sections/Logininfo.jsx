@@ -67,7 +67,7 @@ export const Logininfo = (props) => {
       <div className={s.emailSection}>
         <div className={s.formItem}>
           <span>Current Email</span>
-          <p className={s.input}>{data.email}</p>
+          <p className={s.input}>{data?.email}</p>
         </div>
         <div className={s.formItem}>
           <span>New email</span>
