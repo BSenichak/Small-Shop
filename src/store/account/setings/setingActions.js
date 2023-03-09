@@ -1,4 +1,8 @@
-import { reauthenticateWithCredential, updateEmail, updatePassword } from "firebase/auth";
+import {
+  reauthenticateWithCredential,
+  updateEmail,
+  updatePassword,
+} from "firebase/auth";
 import { doc, updateDoc } from "firebase/firestore";
 import { uploadBytes, ref } from "firebase/storage";
 import { auth, db, storage } from "../../../plagins/firebase";
@@ -21,9 +25,9 @@ export const FAILED_UPDATE_USER_CONTACT_DATA =
 export const SUCCESS_UPDATE_USER_CONTACT_DATA =
   "SUCCESS_UPDATE_USER_CONTACT_DATA";
 
-export const START_UPDATE_USER_LOGIN_DATA = "START_UPDATE_USER_LOGIN_DATA"
-export const FAILED_UPDATE_USER_LOGIN_DATA = "FAILED_UPDATE_USER_LOGIN_DATA"
-export const SUCCESS_UPDATE_USER_LOGIN_DATA = "SUCCESS_UPDATE_USER_LOGIN_DATA"
+export const START_UPDATE_USER_LOGIN_DATA = "START_UPDATE_USER_LOGIN_DATA";
+export const FAILED_UPDATE_USER_LOGIN_DATA = "FAILED_UPDATE_USER_LOGIN_DATA";
+export const SUCCESS_UPDATE_USER_LOGIN_DATA = "SUCCESS_UPDATE_USER_LOGIN_DATA";
 
 export const updateUserPersonalInfo = (
   link,
@@ -94,7 +98,7 @@ export const updateUserContactData = (
   homehouse = "",
   homeflat = "",
   postCity = "",
-  postNumber= ""
+  postNumber = ""
 ) => {
   return (dispatch) => {
     dispatch(startUpdateUserContactData());
@@ -134,35 +138,41 @@ export const successUpdateUserContactData = () => {
   };
 };
 
-export const updateUserLoginData = (newEmail ,newPassword, userData) =>{
-  return dispatch=> {
-    dispatch(()=>startUpdateUserLoginData())
-    console.log(newEmail, newPassword, auth, userData)
-    reauthenticateWithCredential(auth.currentUser, userData).then((data=>console.log(data))).catch(err=>console.error(err))
-    if(newEmail){
-      updateEmail(auth.currentUser, newEmail).then(dispatch(()=>successUpdateUserLoginData())).catch(err=>dispatch(failedUpdateUserLoginData(err)))
+export const updateUserLoginData = (newEmail, newPassword, userData) => {
+  return (dispatch) => {
+    dispatch(() => startUpdateUserLoginData());
+    console.log(newEmail, newPassword, auth, userData);
+    reauthenticateWithCredential(auth.currentUser, userData)
+      .then((data) => console.log(data))
+      .catch((err) => console.error(err));
+    if (newEmail) {
+      updateEmail(auth.currentUser, newEmail)
+        .then(dispatch(() => successUpdateUserLoginData()))
+        .catch((err) => dispatch(failedUpdateUserLoginData(err)));
     }
-    if(newPassword){
-      updatePassword(auth.currentUser, newPassword).then(dispatch(()=>successUpdateUserLoginData())).catch(err=>dispatch(failedUpdateUserLoginData(err)))
+    if (newPassword) {
+      updatePassword(auth.currentUser, newPassword)
+        .then(dispatch(() => successUpdateUserLoginData()))
+        .catch((err) => dispatch(failedUpdateUserLoginData(err)));
     }
-  }
-}
+  };
+};
 
 export const startUpdateUserLoginData = () => {
   return {
-    type: START_UPDATE_USER_LOGIN_DATA
-  }
-}
+    type: START_UPDATE_USER_LOGIN_DATA,
+  };
+};
 
 export const failedUpdateUserLoginData = (err) => {
   return {
     type: FAILED_UPDATE_USER_LOGIN_DATA,
-    payload: err
-  }
-}
+    payload: err,
+  };
+};
 
 export const successUpdateUserLoginData = () => {
   return {
     type: SUCCESS_UPDATE_USER_LOGIN_DATA,
-  }
-}
+  };
+};
