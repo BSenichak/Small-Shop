@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { connect, useSelector } from "react-redux";
+import { connect, useSelector, useDispatch } from "react-redux";
+import { updateUserLoginData } from "../../../../store/account/setings/setingActions";
 import s from "../UserSetings.module.css";
 
 export const Logininfo = (props) => {
-  // const dispatch = useDispatch();
-  const currentEmail = useSelector((state) => state.account.data.email);
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state.account.data);
   const [btnState, setBtnState] = useState(false);
   const [newEmail, setNewEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -44,15 +45,21 @@ export const Logininfo = (props) => {
   };
 
   const checkRepeadPassword = (e) => {
-    setRepeadNewPassword(e.target.value)
-    if(newPassword === e.target.value && !oneLowercase && !oneUppercase && !oneNumeric && !passLong){
-      setBtnState(true)
+    setRepeadNewPassword(e.target.value);
+    if (
+      newPassword === e.target.value &&
+      !oneLowercase &&
+      !oneUppercase &&
+      !oneNumeric &&
+      !passLong
+    ) {
+      setBtnState(true);
       e.target.style.borderColor = "green";
-    }else{
-      setBtnState(false)
+    } else {
+      setBtnState(false);
       e.target.style.borderColor = "red";
     }
-  }
+  };
 
   return (
     <div className={s.loginWrapper}>
@@ -60,12 +67,7 @@ export const Logininfo = (props) => {
       <div className={s.emailSection}>
         <div className={s.formItem}>
           <span>Current Email</span>
-          <input
-            type="text"
-            className={s.input}
-            defaultValue={currentEmail}
-            disabled
-          />
+          <p className={s.input}>{data.email}</p>
         </div>
         <div className={s.formItem}>
           <span>New email</span>
@@ -81,11 +83,21 @@ export const Logininfo = (props) => {
       <div className={s.emailSection}>
         <div className={s.formItem}>
           <span>New Password</span>
-          <input type="text" className={s.input} value={newPassword} onChange={e=>checkPassword(e)}/>
+          <input
+            type="text"
+            className={s.input}
+            value={newPassword}
+            onChange={(e) => checkPassword(e)}
+          />
         </div>
         <div className={s.formItem}>
           <span>Repead new password</span>
-          <input type="text" className={s.input} value={newRepeadPassword} onChange={e=>checkRepeadPassword(e)}/>
+          <input
+            type="text"
+            className={s.input}
+            value={newRepeadPassword}
+            onChange={(e) => checkRepeadPassword(e)}
+          />
         </div>
       </div>
       <div className={s.errors}>
@@ -113,6 +125,7 @@ export const Logininfo = (props) => {
         onClick={
           btnState
             ? () => {
+                dispatch(updateUserLoginData(newEmail, newPassword, data));
                 setBtnState(false);
                 [...document.getElementsByClassName(s.input)].forEach(
                   (element) => {

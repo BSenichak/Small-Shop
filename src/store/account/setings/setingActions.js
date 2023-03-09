@@ -1,9 +1,8 @@
+import { reauthenticateWithCredential, updateEmail, updatePassword } from "firebase/auth";
 import { doc, updateDoc } from "firebase/firestore";
 import { uploadBytes, ref } from "firebase/storage";
-import { db, storage } from "../../../plagins/firebase";
+import { auth, db, storage } from "../../../plagins/firebase";
 import { checkLogin } from "../accountActions";
-
-export const SUCCESS_OFF = "SUCCESS_OFF";
 
 export const START_SET_USER_PHOTO = "START_SET_USER_PHOTO";
 export const FAILED_SET_USER_PHOTO = "FAILED_SET_USER_PHOTO";
@@ -21,6 +20,10 @@ export const FAILED_UPDATE_USER_CONTACT_DATA =
   "FAILED_UPDATE_USER_CONTACT_DATA";
 export const SUCCESS_UPDATE_USER_CONTACT_DATA =
   "SUCCESS_UPDATE_USER_CONTACT_DATA";
+
+export const START_UPDATE_USER_LOGIN_DATA = "START_UPDATE_USER_LOGIN_DATA"
+export const FAILED_UPDATE_USER_LOGIN_DATA = "FAILED_UPDATE_USER_LOGIN_DATA"
+export const SUCCESS_UPDATE_USER_LOGIN_DATA = "SUCCESS_UPDATE_USER_LOGIN_DATA"
 
 export const updateUserPersonalInfo = (
   link,
@@ -131,8 +134,35 @@ export const successUpdateUserContactData = () => {
   };
 };
 
-export const successOff = () => {
+export const updateUserLoginData = (newEmail ,newPassword, userData) =>{
+  return dispatch=> {
+    dispatch(()=>startUpdateUserLoginData())
+    console.log(newEmail, newPassword, auth, userData)
+    reauthenticateWithCredential(auth.currentUser, userData).then((data=>console.log(data))).catch(err=>console.error(err))
+    if(newEmail){
+      updateEmail(auth.currentUser, newEmail).then(dispatch(()=>successUpdateUserLoginData())).catch(err=>dispatch(failedUpdateUserLoginData(err)))
+    }
+    if(newPassword){
+      updatePassword(auth.currentUser, newPassword).then(dispatch(()=>successUpdateUserLoginData())).catch(err=>dispatch(failedUpdateUserLoginData(err)))
+    }
+  }
+}
+
+export const startUpdateUserLoginData = () => {
   return {
-    type: SUCCESS_OFF,
-  };
-};
+    type: START_UPDATE_USER_LOGIN_DATA
+  }
+}
+
+export const failedUpdateUserLoginData = (err) => {
+  return {
+    type: FAILED_UPDATE_USER_LOGIN_DATA,
+    payload: err
+  }
+}
+
+export const successUpdateUserLoginData = () => {
+  return {
+    type: SUCCESS_UPDATE_USER_LOGIN_DATA,
+  }
+}

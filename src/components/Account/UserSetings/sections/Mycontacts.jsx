@@ -10,13 +10,13 @@ export const Mycontacts = (props) => {
   const load = useSelector((state) => state.setings.loading);
 
   useEffect(() => {
-    setMobileNumber(fullData?.phoneNumber);
-    sethomeCity(fullData?.homeCity);
-    sethomeStreet(fullData?.homeStreet);
-    sethomehouse(fullData?.homehouse);
-    sethomeflat(fullData?.homeflat);
-    setpostCity(fullData?.postCity);
-    setpostNumber(fullData?.postNumber);
+    setMobileNumber(fullData?.phoneNumber?fullData?.phoneNumber:"");
+    sethomeCity(fullData?.homeCity?fullData?.homeCity:"");
+    sethomeStreet(fullData?.homeStreet?fullData?.homeStreet:"");
+    sethomehouse(fullData?.homehouse?fullData?.homehouse:"");
+    sethomeflat(fullData?.homeflat?fullData?.homeflat:"");
+    setpostCity(fullData?.postCity?fullData?.postCity:"");
+    setpostNumber(fullData?.postNumber?fullData?.postNumber:"");
   }, [fullData]);
 
   const [mobileNumber, setMobileNumber] = useState("");

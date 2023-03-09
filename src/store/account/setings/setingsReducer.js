@@ -1,9 +1,16 @@
-import { FAILED_UPDATE_USER_CONTACT_DATA, FAILED_UPDATE_USER_PERSONAL_INFO, START_UPDATE_USER_CONTACT_DATA, START_UPDATE_USER_PERSONAL_INFO, SUCCESS_OFF, SUCCESS_UPDATE_USER_CONTACT_DATA, SUCCESS_UPDATE_USER_PERSONAL_INFO } from "./setingActions";
+import {
+  FAILED_UPDATE_USER_CONTACT_DATA,
+  FAILED_UPDATE_USER_PERSONAL_INFO,
+  START_UPDATE_USER_CONTACT_DATA,
+  START_UPDATE_USER_PERSONAL_INFO,
+  SUCCESS_UPDATE_USER_CONTACT_DATA,
+  SUCCESS_UPDATE_USER_PERSONAL_INFO,
+} from "./setingActions";
 
 const initalState = {
   loading: false,
   error: null,
-  success: false
+  success: false,
 };
 
 export default function setingsReducer(state = initalState, action) {
@@ -13,7 +20,7 @@ export default function setingsReducer(state = initalState, action) {
         ...state,
         loading: true,
         error: null,
-        success: false
+        success: false,
       };
     case FAILED_UPDATE_USER_PERSONAL_INFO:
       return {
@@ -32,7 +39,7 @@ export default function setingsReducer(state = initalState, action) {
         ...state,
         loading: true,
         error: null,
-        success: false
+        success: false,
       };
     case FAILED_UPDATE_USER_CONTACT_DATA:
       return {
@@ -45,11 +52,6 @@ export default function setingsReducer(state = initalState, action) {
         ...state,
         loading: false,
         success: true,
-      };
-    case SUCCESS_OFF:
-      return {
-        ...state,
-        success: false,
       };
     default:
       return state;
