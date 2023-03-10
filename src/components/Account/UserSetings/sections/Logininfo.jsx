@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import { connect, useSelector, useDispatch } from "react-redux";
-import { updateUserLoginData } from "../../../../store/account/setings/setingActions";
+import { openConfirmWindow } from "../../../../store/account/setings/setingActions";
 import s from "../UserSetings.module.css";
+import ConfirmWindow from "./ConfirmWindow/ConfirmWindow";
 
 export const Logininfo = (props) => {
   const dispatch = useDispatch();
-  const data = useSelector((state) => state.account.data);
+  const confirmWindow = useSelector((state) => state.setings.confirmWindow);
   const [btnState, setBtnState] = useState(false);
   const [newEmail, setNewEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [newRepeadPassword, setRepeadNewPassword] = useState("");
+  const [confirmdata, setConfirmData] = useState("");
 
   const [oneLowercase, setoneLowercase] = useState(false);
   const [oneUppercase, setoneUppercase] = useState(false);
@@ -63,12 +65,15 @@ export const Logininfo = (props) => {
 
   return (
     <div className={s.loginWrapper}>
+      {confirmWindow && (
+        <ConfirmWindow
+          type={confirmdata}
+          newemail={newEmail}
+          newpassword={newPassword}
+        />
+      )}
       <h2>Email</h2>
       <div className={s.emailSection}>
-        <div className={s.formItem}>
-          <span>Current Email</span>
-          <p className={s.input}>{data?.email}</p>
-        </div>
         <div className={s.formItem}>
           <span>New email</span>
           <input
@@ -84,7 +89,7 @@ export const Logininfo = (props) => {
         <div className={s.formItem}>
           <span>New Password</span>
           <input
-            type="text"
+            type="password"
             className={s.input}
             value={newPassword}
             onChange={(e) => checkPassword(e)}
@@ -93,7 +98,7 @@ export const Logininfo = (props) => {
         <div className={s.formItem}>
           <span>Repead new password</span>
           <input
-            type="text"
+            type="password"
             className={s.input}
             value={newRepeadPassword}
             onChange={(e) => checkRepeadPassword(e)}
@@ -125,7 +130,8 @@ export const Logininfo = (props) => {
         onClick={
           btnState
             ? () => {
-                dispatch(updateUserLoginData(newEmail, newPassword, data));
+                setConfirmData("upd");
+                dispatch(openConfirmWindow());
                 setBtnState(false);
                 [...document.getElementsByClassName(s.input)].forEach(
                   (element) => {
@@ -137,6 +143,15 @@ export const Logininfo = (props) => {
         }
       >
         SAVE
+      </div>
+      <div
+        className={s.deleteBtn}
+        onClick={() => {
+          setConfirmData("del");
+          dispatch(openConfirmWindow());
+        }}
+      >
+        Delete accout
       </div>
     </div>
   );

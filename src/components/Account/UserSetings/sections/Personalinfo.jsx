@@ -161,9 +161,9 @@ export const Personalinfo = (props) => {
             value={gender}
             onChange={(e) => genderChange(e)}
           >
-            <option value="null">--</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
+            <option value="null" className={s.sopt}>--</option>
+            <option value="male" className={s.sopt}>Male</option>
+            <option value="female" className={s.sopt}>Female</option>
           </select>
         </div>
       </div>

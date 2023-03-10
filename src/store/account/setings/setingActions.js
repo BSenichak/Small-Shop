@@ -1,16 +1,16 @@
 import {
+  deleteUser,
+  EmailAuthProvider,
   reauthenticateWithCredential,
   updateEmail,
   updatePassword,
 } from "firebase/auth";
-import { doc, updateDoc } from "firebase/firestore";
+import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { uploadBytes, ref } from "firebase/storage";
 import { auth, db, storage } from "../../../plagins/firebase";
 import { checkLogin } from "../accountActions";
 
-export const START_SET_USER_PHOTO = "START_SET_USER_PHOTO";
-export const FAILED_SET_USER_PHOTO = "FAILED_SET_USER_PHOTO";
-export const SUCCESS_SET_USER_PHOTO = "SUCCESS_SET_USER_PHOTO";
+/* --- UPDATE USER PERSONAL INFO --- */
 
 export const START_UPDATE_USER_PERSONAL_INFO =
   "START_UPDATE_USER_PERSONAL_INFO";
@@ -18,16 +18,6 @@ export const FAILED_UPDATE_USER_PERSONAL_INFO =
   "FAILED_UPDATE_USER_PERSONAL_INFO";
 export const SUCCESS_UPDATE_USER_PERSONAL_INFO =
   "SUCCESS_UPDATE_USER_PERSONAL_INFO";
-
-export const START_UPDATE_USER_CONTACT_DATA = "START_UPDATE_USER_CONTACT_DATA";
-export const FAILED_UPDATE_USER_CONTACT_DATA =
-  "FAILED_UPDATE_USER_CONTACT_DATA";
-export const SUCCESS_UPDATE_USER_CONTACT_DATA =
-  "SUCCESS_UPDATE_USER_CONTACT_DATA";
-
-export const START_UPDATE_USER_LOGIN_DATA = "START_UPDATE_USER_LOGIN_DATA";
-export const FAILED_UPDATE_USER_LOGIN_DATA = "FAILED_UPDATE_USER_LOGIN_DATA";
-export const SUCCESS_UPDATE_USER_LOGIN_DATA = "SUCCESS_UPDATE_USER_LOGIN_DATA";
 
 export const updateUserPersonalInfo = (
   link,
@@ -90,6 +80,14 @@ export const successUpdateUserPersonalInfo = () => {
   };
 };
 
+/* --- UPDATE USER CONTACT DATA --- */
+
+export const START_UPDATE_USER_CONTACT_DATA = "START_UPDATE_USER_CONTACT_DATA";
+export const FAILED_UPDATE_USER_CONTACT_DATA =
+  "FAILED_UPDATE_USER_CONTACT_DATA";
+export const SUCCESS_UPDATE_USER_CONTACT_DATA =
+  "SUCCESS_UPDATE_USER_CONTACT_DATA";
+
 export const updateUserContactData = (
   uuid,
   phoneNumber = "",
@@ -138,13 +136,19 @@ export const successUpdateUserContactData = () => {
   };
 };
 
-export const updateUserLoginData = (newEmail, newPassword, userData) => {
+/*---UPDATE USER LOGIN DATA ---*/
+
+export const START_UPDATE_USER_LOGIN_DATA = "START_UPDATE_USER_LOGIN_DATA";
+export const FAILED_UPDATE_USER_LOGIN_DATA = "FAILED_UPDATE_USER_LOGIN_DATA";
+export const SUCCESS_UPDATE_USER_LOGIN_DATA = "SUCCESS_UPDATE_USER_LOGIN_DATA";
+
+export const updateUserLoginData = (newEmail, newPassword, password) => {
   return (dispatch) => {
     dispatch(() => startUpdateUserLoginData());
-    console.log(newEmail, newPassword, auth, userData);
-    reauthenticateWithCredential(auth.currentUser, userData)
-      .then((data) => console.log(data))
-      .catch((err) => console.error(err));
+    reauthenticateWithCredential(
+      auth.currentUser,
+      EmailAuthProvider.credential(auth.currentUser.email, password)
+    );
     if (newEmail) {
       updateEmail(auth.currentUser, newEmail)
         .then(dispatch(() => successUpdateUserLoginData()))
@@ -174,5 +178,59 @@ export const failedUpdateUserLoginData = (err) => {
 export const successUpdateUserLoginData = () => {
   return {
     type: SUCCESS_UPDATE_USER_LOGIN_DATA,
+  };
+};
+
+/*---DELETE ACCOUT --*/
+
+export const START_DELETE_ACCOUNT = "START_DELETE_ACCOUNT";
+export const FAILED_DELETE_ACCOUNT = "FAILED_DELETE_ACCOUNT";
+export const SUCCESS_DELETE_ACCOUNT = "SUCCESS_DELETE_ACCOUNT";
+
+export const deleteAccount = (password, uid) => {
+  return (dispatch) => {
+    dispatch(startDeleteAccout());
+    reauthenticateWithCredential(
+      auth.currentUser,
+      EmailAuthProvider.credential(auth.currentUser.email, password)
+    ).then(() => {
+      deleteUser(auth.currentUser)
+        .then(() => dispatch(successDeleteAccout()))
+        .catch((err) => dispatch(failedDeleteAccout(err)));
+      deleteDoc(doc(db, "users", uid))
+    });
+  };
+};
+
+export const startDeleteAccout = () => {
+  return {
+    type: START_DELETE_ACCOUNT,
+  };
+};
+export const failedDeleteAccout = (err) => {
+  return {
+    type: FAILED_DELETE_ACCOUNT,
+    payload: err,
+  };
+};
+export const successDeleteAccout = () => {
+  return {
+    type: SUCCESS_DELETE_ACCOUNT,
+  };
+};
+
+/* --- CONFIRM WINDOW STATE --- */
+
+export const OPEN_CONFIRM_WINDOW = "OPEN_CONFIRM_WINDOW";
+export const CLOSE_CONFIRM_WINDOW = "CLOSE_CONFIRM_WINDOW";
+
+export const openConfirmWindow = () => {
+  return {
+    type: OPEN_CONFIRM_WINDOW,
+  };
+};
+export const closeConfirmWindow = () => {
+  return {
+    type: CLOSE_CONFIRM_WINDOW,
   };
 };

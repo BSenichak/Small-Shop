@@ -1,0 +1,64 @@
+.wrapper {
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.window {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  background-color: var(--tertiary-background);
+  padding: 2rem 1rem;
+}
+
+.title {
+  font-size: 1.5rem;
+}
+
+.input {
+  margin-bottom: 1rem;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  display: block;
+  width: 20rem;
+}
+
+.input:focus {
+  outline: none;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.btnC {
+  padding: 0.5rem 1rem;
+  background-color: var(--danger-background);
+  color: var(--danger-color);
+  cursor: pointer;
+}
+
+.btnOK {
+  padding: 0.5rem 1rem;
+  background-color: var(--success-background);
+  color: var(--success-color);
+  cursor: pointer;
+}
+
+.password {
+  display: flex;
+  gap: 1rem;
+}
+
+.password input {
+  flex-grow: 1;
+}
