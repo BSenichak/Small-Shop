@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
+import { addAdminProduct } from "../../../store/admin/addProductAdminActions";
 import { loadCategories } from "../../../store/home/categories/categoriesActions";
 import s from "./AdminAddProduct.module.css";
 
@@ -12,6 +13,7 @@ export const AdminAddProduct = (props) => {
 
   const [image, setImage] = useState("");
   const [imageUrl, setImageUrl] = useState("");
+  const [imageFile, setImageFile] = useState("");
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
@@ -40,6 +42,7 @@ export const AdminAddProduct = (props) => {
           onChange={(e) => {
             setImage(e.target.value);
             setImageUrl(URL.createObjectURL(e.target.files[0]));
+						setImageFile(e.target.files[0])
           }}
         />
       </div>
@@ -79,7 +82,7 @@ export const AdminAddProduct = (props) => {
         <label>Description</label>
         <textarea value={desc} onChange={(e)=>setDesc(e.target.value)}></textarea>
       </div>
-      <div className={`${s.btn} ${btnState ? s.btnActive : ""}`}>ADD</div>
+      <div className={`${s.btn} ${btnState ? s.btnActive : ""}`} onClick={()=>props.addProd(name,category, desc, price, image, imageFile)}>ADD</div>
     </div>
   );
 };
@@ -91,6 +94,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     loadCategorylist: () => dispatch(loadCategories()),
+		addProd: (name, category, desc, price, imglink, imgFile)=>dispatch(addAdminProduct(name, category, desc, price, imglink, imgFile))
   };
 };
 

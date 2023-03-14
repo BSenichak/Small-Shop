@@ -3,6 +3,7 @@ import logger from "redux-logger"
 import thunk from "redux-thunk";
 import accountReducer from "./account/accountReducer";
 import setingsReducer from "./account/setings/setingsReducer";
+import adminReducer from "./admin/adminReducer";
 import categoryReducer from "./category/categoryReducer";
 import headerReducer from "./header/headerReducer";
 import categoriesReducer from "./home/categories/categoriesReducer";
@@ -18,6 +19,7 @@ const generalReducer = combineReducers({
     product: productReducer,
     account: accountReducer,
     setings: setingsReducer,
+    admin: adminReducer,
 })
 
 
