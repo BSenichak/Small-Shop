@@ -1,0 +1,84 @@
+.wrapper {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-gap: 0.5rem;
+}
+
+.title {
+    grid-area: 1/1/2/-1;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.input{
+    margin-bottom: 1rem;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid var(--primary-color);
+    color: var(--primary-color);
+}
+
+.input:focus, .select:focus {
+    outline: none;
+}
+
+.formItem {
+    display: flex;
+    flex-direction: column;
+    grid-column: span 2;
+}
+
+.select {
+    margin-bottom: 1rem;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    padding: 0.15rem;
+}
+
+.select * {
+    background-color: var(--primary-background);
+    border: none;
+    border-bottom: 1px solid var(--primary-color);
+    color: var(--primary-color);
+}
+
+.image {
+    grid-column: 5/-1;
+    grid-row: 2/10;
+    align-items: center;
+    gap: 1rem;
+}
+
+.image img{
+    width: 50%;
+}
+
+.desc {
+    grid-column: span 4;
+}
+
+.desc textarea {
+    background-color: transparent;
+    border: 1px solid var(--primary-color);
+    resize: none;
+    color: var(--primary-color);
+}
+.desc textarea:focus {
+    outline: none;
+}
+
+.btn {
+    width: 100%;
+    background-color: var(--selection-color );
+    padding: 0.3rem;
+    text-align: center;
+    cursor: pointer;
+    grid-column: 1/-1;
+}
+
+.btnActive {
+    background-color: var(--love-color);
+    color: var(--primary-color);
+}

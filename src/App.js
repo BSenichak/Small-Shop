@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Category from "./components/Category/Category";
@@ -14,9 +14,11 @@ import Register from "./components/Account/Register/Register";
 import { loadCart, setPageTheme } from "./store/header/headerActions";
 import { checkLogin } from "./store/account/accountActions";
 import UserSetings from "./components/Account/UserSetings/UserSetings";
+import AdminPage from "./components/AdminPage/AdminPage";
 
 function App() {
   const dispatch = useDispatch();
+  const root = useSelector((state) => state?.account?.fullData?.root);
   useEffect(() => {
     if (window.localStorage.getItem("theme") === null) {
       window.localStorage.setItem("theme", "light");
@@ -27,23 +29,31 @@ function App() {
     }
     return () => null;
   });
-  useEffect(()=>{
-    dispatch(loadCart())
-    dispatch(checkLogin())
-  })
+  useEffect(() => {
+    dispatch(loadCart());
+    dispatch(checkLogin());
+  });
   return (
     <div className="App">
       <Header />
       <main>
         <Routes>
-          <Route path="/" element={<HomePage/>}></Route>
+          <Route path="/" element={<HomePage />}></Route>
           <Route path="/*" element={<NotFound />}></Route>
-          <Route path="/category/*" element={<Category/>}></Route>
-          <Route path="/product/*" element={<Product/>}></Route>
-          <Route path="/login" element={<Login/>}></Route>
-          <Route path="/login/forgotpassword" element={<ForgotPassword/>}></Route>
-          <Route path="/register" element={<Register/>}></Route>
-          <Route path="/setings/*" element={<UserSetings/>}></Route>
+          <Route path="/category/*" element={<Category />}></Route>
+          <Route path="/product/*" element={<Product />}></Route>
+          <Route path="/login" element={<Login />}></Route>
+          <Route
+            path="/login/forgotpassword"
+            element={<ForgotPassword />}
+          ></Route>
+          <Route path="/register" element={<Register />}></Route>
+          <Route path="/setings/*" element={<UserSetings />}></Route>
+          {root === "admin" ? (
+            <Route path="/admin/*" element={<AdminPage />}></Route>
+          ) : (
+            <Route path="/admin/*" element={<NotFound />}></Route>
+          )}
         </Routes>
       </main>
       <Footer />
