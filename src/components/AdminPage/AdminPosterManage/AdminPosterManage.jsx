@@ -5,6 +5,7 @@ import {
   adminPosterLoad,
   adminUpdatePosters,
 } from "../../../store/admin/adminPosterManageActions";
+import Loader from "../../Loader/Loader";
 import AdminPoster from "./AdminPoster";
 import s from "./AdminPosterManage.module.css";
 
@@ -52,8 +53,16 @@ export const AdminPosterManage = (props) => {
             }}
           />
         </div>
-        <div className={s.addBtn} onClick={()=>props.addPoster(props.posters.length, color, image, imageFile)}>ADD</div>
+        <div className={s.addBtn} onClick={()=>{
+        props.addPoster(props.posters.length, color, image, imageFile)
+        setColor("")
+        setImage("")
+        }}>ADD</div>
       </div>
+      {props.loading&&<div className={s.loaderWrapper}>
+        <Loader/>
+      </div>
+      }
     </div>
   );
 };
@@ -61,6 +70,7 @@ export const AdminPosterManage = (props) => {
 const mapStateToProps = (state) => ({
   posters: state?.admin?.posters,
   del: state?.admin?.delete,
+  loading: state?.admin?.loading,
 });
 
 const mapDispatchToProps = (dispatch) => {

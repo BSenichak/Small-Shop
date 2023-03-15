@@ -140,11 +140,12 @@ export const adminAddNewPoster = (id, bgc, imgLink, imgFile) => {
       .catch((err) => dispatch(failedAdminAddNewPoster(err)));
     uploadBytes(ref(storage, `posters/${imgLink}`), imgFile, {
       contentType: `image/${imgLink.substring(imgLink.indexOf(".") + 1)}`,
-    }).catch(err=>console.error(err));
+    })
+      .then(() => dispatch(successAdminAddNewPoster()))
+      .catch((err) => dispatch(failedAdminAddNewPoster(err)));
     setTimeout(() => {
-      dispatch(adminPosterLoad())
+      dispatch(adminPosterLoad());
     }, 1000);
-    
   };
 };
 
