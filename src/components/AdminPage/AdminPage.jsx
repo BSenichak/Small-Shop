@@ -10,6 +10,7 @@ import {
   AiOutlineFund,
 } from "react-icons/ai";
 import AdminAddProduct from "./AdminAddProduct/AdminAddProduct";
+import AdminPosterManage from "./AdminPosterManage/AdminPosterManage";
 
 export const AdminPage = (props) => {
   const currentLink = useLocation().pathname.substring(7);
@@ -64,7 +65,7 @@ export const AdminPage = (props) => {
       </aside>
       <div className={s.content}>
         <Routes>
-          <Route path="postermanage" element={"postermanage"} />
+          <Route path="postermanage" element={<AdminPosterManage/>} />
           <Route path="categorymanage" element={"categoryManage"} />
           <Route path="addproduct" element={<AdminAddProduct />} />
           <Route path="manageproduct" element={"manageproduct"} />

@@ -11,7 +11,7 @@ export const CategoryItem = (props) => {
     const [imageLoading, setImageLoading] = useState(true)
     useEffect(()=>{
         getDownloadURL(
-            ref(storage, `products/${props.data.category}/${props.data.img}`)
+            ref(storage, `products/${props?.data?.category}/${props?.data?.img}`)
           ).then((url) => setImage(url))
     })
   return (
