@@ -131,14 +131,20 @@ export const SUCCESS_ADMIN_ADD_NEW_POSTER = "SUCCESS_ADMIN_ADD_NEW_POSTER";
 export const adminAddNewPoster = (id, bgc, imgLink, imgFile) => {
   return (dispatch) => {
     dispatch(startAdminAddNewPoster());
-    addDoc(doc(db, "homePagePosters"), {
+    addDoc(collection(db, "homePagePosters"), {
       id,
       bgc,
       link: imgLink,
     })
       .then(() => dispatch(successAdminAddNewPoster()))
       .catch((err) => dispatch(failedAdminAddNewPoster(err)));
-    // uploadBytes(ref(storage, ))
+    uploadBytes(ref(storage, `posters/${imgLink}`), imgFile, {
+      contentType: `image/${imgLink.substring(imgLink.indexOf(".") + 1)}`,
+    }).catch(err=>console.error(err));
+    setTimeout(() => {
+      dispatch(adminPosterLoad())
+    }, 1000);
+    
   };
 };
 

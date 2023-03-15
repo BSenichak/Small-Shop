@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import {
+  adminAddNewPoster,
   adminPosterLoad,
   adminUpdatePosters,
 } from "../../../store/admin/adminPosterManageActions";
@@ -51,7 +52,7 @@ export const AdminPosterManage = (props) => {
             }}
           />
         </div>
-        <div className={s.addBtn}>ADD</div>
+        <div className={s.addBtn} onClick={()=>props.addPoster(props.posters.length, color, image, imageFile)}>ADD</div>
       </div>
     </div>
   );
@@ -67,6 +68,7 @@ const mapDispatchToProps = (dispatch) => {
     loadPosters: () => dispatch(adminPosterLoad()),
     updatePosters: (posters, del = []) =>
       dispatch(adminUpdatePosters(posters, del)),
+    addPoster: (id, bgc, imgLink, imgFile)=>dispatch(adminAddNewPoster(id, bgc, imgLink, imgFile)),
   };
 };
 
