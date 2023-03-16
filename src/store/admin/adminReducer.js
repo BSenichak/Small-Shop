@@ -4,6 +4,14 @@ import {
   SUCCESS_ADD_ADMIN_PRODUCT,
 } from "./addProductAdminActions";
 import {
+  ADMIN_DELETE_CATEGORY,
+  ADMIN_MOVE_DOWN_CATEGORY,
+  ADMIN_MOVE_UP_CATEGORY,
+  FAILED_ADMIN_LOAD_CATEGORIES,
+  START_ADMIN_LOAD_CATEGORIES,
+  SUCCESS_ADMIN_LOAD_CATEGORIES,
+} from "./adminCategoryManageActions";
+import {
   ADMIN_DELETE_POSTER,
   ADMIN_MOVE_DOWN_POSTER,
   ADMIN_MOVE_UP_POSTER,
@@ -20,6 +28,8 @@ const initialState = {
   error: null,
   posters: [],
   delete: [],
+  categories: [],
+  deleteCateg: [],
 };
 
 export default function adminReducer(state = initialState, action) {
@@ -101,23 +111,81 @@ export default function adminReducer(state = initialState, action) {
         ],
       };
     case START_ADMIN_ADD_NEW_POSTER:
-        return {
-            ...state,
-            loading: true,
-            error: null,
-        }
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
     case FAILED_ADMIN_ADD_NEW_POSTER:
-        return {
-            ...state,
-            loading: false,
-            error: action.payload,
-        }
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
     case SUCCESS_ADMIN_ADD_NEW_POSTER:
-        return {
-            ...state,
-            loading: false,
-            error: null,
-        }
+      return {
+        ...state,
+        loading: false,
+        error: null,
+      };
+    case START_ADMIN_LOAD_CATEGORIES:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case FAILED_ADMIN_LOAD_CATEGORIES:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case SUCCESS_ADMIN_LOAD_CATEGORIES:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        categories: action.payload,
+      };
+    case ADMIN_MOVE_UP_CATEGORY:
+      let a = state.categories;
+      if (action.payload > 0) {
+        a[action.payload].id = action.payload - 1;
+        a[action.payload - 1].id = action.payload;
+      } else {
+        a[action.payload].id = a.length - 1;
+        a[a.length - 1].id = action.payload;
+      }
+      return {
+        ...state,
+        categories: [...a.sort((a, b) => a.id - b.id)],
+      };
+    case ADMIN_MOVE_DOWN_CATEGORY:
+      let b = state.categories;
+      if (action.payload < b.length - 1) {
+        b[action.payload].id = action.payload + 1;
+        b[action.payload + 1].id = action.payload;
+      } else {
+        b[action.payload].id = 0;
+        b[0].id = action.payload;
+      }
+      return {
+        ...state,
+        categories: [...b.sort((a, b) => a.id - b.id)],
+      };
+    case ADMIN_DELETE_CATEGORY:
+      let c = state.categories.filter((el) => el.id !== action.payload);
+      for (let i = 0; i < c.length; i++) {
+        c[i].id = i;
+      }
+      return {
+        ...state,
+        categories: [...c],
+        deleteCateg: [
+          ...state.deleteCateg,
+          state.categories.filter((el) => el.id === action.payload)[0],
+        ],
+      };
     default:
       return state;
   }

@@ -1,0 +1,98 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    position: relative;
+}
+
+.item {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    place-items: center;
+}
+
+.item img {
+    height: 5rem;
+}
+
+.item svg {
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.item svg:hover {
+    color: var(--success-color);
+}
+
+.arrows {
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+}
+
+.btn {
+    width: 100%;
+    background-color: var(--selection-color );
+    padding: 0.3rem;
+    text-align: center;
+    cursor: pointer;
+    grid-column: 1/-1;
+}
+
+.btnActive {
+    background-color: var(--love-color);
+    color: var(--primary-color);
+}
+
+.input{
+    margin-bottom: 1rem;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid var(--primary-color);
+    color: var(--primary-color);
+}
+
+.input:focus, .select:focus {
+    outline: none;
+}
+
+.formItem {
+    display: flex;
+    flex-direction: column;
+}
+
+.image {
+    grid-row: span 2;
+    gap: 1rem;
+}
+
+.image img {
+    height: 15rem;
+    object-fit: contain;
+}
+
+.adding {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1rem;
+    place-items: center;
+}
+
+.addBtn {
+    width: 100%;
+    background-color: var(--selection-color );
+    padding: 0.3rem;
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loaderWrapper {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    backdrop-filter: blur(5px);
+}
