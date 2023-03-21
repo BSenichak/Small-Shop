@@ -12,6 +12,7 @@ import {
 import AdminAddProduct from "./AdminAddProduct/AdminAddProduct";
 import AdminPosterManage from "./AdminPosterManage/AdminPosterManage";
 import AdminCategoriesManage from "./AdminCategoriesManage/AdminCategoriesManage"
+import AdminProductsManage from "./AdminProductsManage/AdminProductsManage";
 
 export const AdminPage = (props) => {
   const currentLink = useLocation().pathname.substring(7);
@@ -69,7 +70,7 @@ export const AdminPage = (props) => {
           <Route path="postermanage" element={<AdminPosterManage/>} />
           <Route path="categorymanage" element={<AdminCategoriesManage/>} />
           <Route path="addproduct" element={<AdminAddProduct />} />
-          <Route path="manageproduct" element={"manageproduct"} />
+          <Route path="manageproduct" element={<AdminProductsManage/>} />
           <Route path="orderlist" element={"orderlist"} />
         </Routes>
       </div>

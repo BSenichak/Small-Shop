@@ -11,6 +11,7 @@ import {
   START_ADMIN_LOAD_CATEGORIES,
   SUCCESS_ADMIN_LOAD_CATEGORIES,
 } from "./adminCategoryManageActions";
+import { FAILED_ADMIN_SEARCH_PRODUCT, START_ADMIN_SEARCH_PRODUCT, SUCCESS_ADMIN_SEARCH_PRODUCT } from "./adminManageProductsActions";
 import {
   ADMIN_DELETE_POSTER,
   ADMIN_MOVE_DOWN_POSTER,
@@ -30,6 +31,7 @@ const initialState = {
   delete: [],
   categories: [],
   deleteCateg: [],
+  searchResults: [],
 };
 
 export default function adminReducer(state = initialState, action) {
@@ -186,6 +188,27 @@ export default function adminReducer(state = initialState, action) {
           state.categories.filter((el) => el.id === action.payload)[0],
         ],
       };
+    case START_ADMIN_SEARCH_PRODUCT:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+        searchResults: [],
+      }
+    case FAILED_ADMIN_SEARCH_PRODUCT:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+        searchResults: [],
+      }
+    case SUCCESS_ADMIN_SEARCH_PRODUCT:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        searchResults: action.payload,
+      }
     default:
       return state;
   }
