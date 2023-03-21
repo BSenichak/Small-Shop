@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { adminSearchProduct } from "../../../store/admin/adminManageProductsActions";
+import { adminSearchProduct, adminUpdateProduct } from "../../../store/admin/adminManageProductsActions";
 import { adminLoadCategories } from "../../../store/admin/adminCategoryManageActions";
 import Loader from "../../Loader/DotsLoader";
 import { AiOutlineCloudUpload } from "react-icons/ai";
@@ -18,6 +18,7 @@ export const AdminProductsManage = (props) => {
     const [imgChange, setImgChange] = useState(false);
     const [newImg, setNewImg] = useState("");
     const [newImgUrl, setNewImgUrl] = useState("");
+    const [newImgFile, setNewImgFile] = useState(undefined);
 
     if (render) {
         props.loadCategories();
@@ -138,6 +139,7 @@ export const AdminProductsManage = (props) => {
                                     URL.createObjectURL(e.target.files[0])
                                 );
                                 setImgChange(true);
+                                setNewImgFile(e.target.files[0])
                             }}
                             id={s.file}
                         />
@@ -145,7 +147,8 @@ export const AdminProductsManage = (props) => {
                     <div
                         className={s.btn}
                         onClick={() => {
-                            console.log(choseProduct, imgChange);
+                            console.log(choseProduct, imgChange?newImg.substring(newImg.lastIndexOf("\\")+1):null, newImgFile);
+                            props.updateProduct(choseProduct, imgChange?newImg.substring(newImg.lastIndexOf("\\")+1):null, newImgFile)
                             setChoseProduct(null);
                             setImgChange(false);
                         }}
@@ -167,6 +170,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         searchChange: (str) => dispatch(adminSearchProduct(str)),
         loadCategories: () => dispatch(adminLoadCategories()),
+        updateProduct: (data, img, file) => dispatch(adminUpdateProduct(data, img, file))
     };
 };
 
