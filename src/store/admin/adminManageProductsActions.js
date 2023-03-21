@@ -32,10 +32,8 @@ export const adminSearchProduct = (str) => {
         result.push(product);
       });
       dispatch(successAdminSearchProduct(result))
-      console.log(result)
     })
     .catch(err=>{
-        console.error(err)
         dispatch(failedAdminSearchProduct(err))
     })
   };

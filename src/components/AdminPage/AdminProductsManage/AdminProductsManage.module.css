@@ -55,6 +55,7 @@
     flex-direction: column;
     align-items: center;
     gap: 1rem;
+    position: relative;
 }
 
 .input:focus, select:focus {
@@ -103,3 +104,16 @@
     color: var(--primary-color);
 }
 
+#file {
+    display: none;
+}
+
+.fileLabel {
+    width: 100%;
+    background-color: var(--quaternary-background);
+    padding: 0.5rem 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}

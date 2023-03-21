@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { adminSearchProduct } from "../../../store/admin/adminManageProductsActions";
 import { adminLoadCategories } from "../../../store/admin/adminCategoryManageActions";
+import Loader from "../../Loader/DotsLoader"
+import { AiOutlineCloudUpload } from "react-icons/ai"
 
 import s from "./AdminProductsManage.module.css";
 import { getDownloadURL, ref } from "firebase/storage";
@@ -57,6 +59,7 @@ export const AdminProductsManage = (props) => {
                                       setImgLoading(true);
                                       setNewImg("")
                                       setNewImgUrl("")
+                                      setImgChange(false)
                                   }}
                               >
                                   {el.name}
@@ -67,6 +70,7 @@ export const AdminProductsManage = (props) => {
             </div>
             {choseProduct !== null && (
                 <div className={s.productWrapper}>
+                    
                     <input
                         type="text"
                         value={choseProduct.name}
@@ -114,25 +118,27 @@ export const AdminProductsManage = (props) => {
                         ))}
                     </select>
                     <div className={s.imgBar}>
-                        <p>Old Image</p>
+                        {imgChange&&<p>Old Image</p>}
+                        {imgLoading&&<Loader/>}
                         <img
                             src={imgUrl}
                             alt="prod"
                             onLoad={() => setImgLoading(false)}
                             style={imgLoading ? { display: "none" } : {}}
                         />
-                        <p>New Image</p>
+                        {imgChange&&<p>New Image</p>}
                         {newImg&&<img src={newImgUrl} alt="newImg" />}
+                        <label htmlFor={s.file} className={s.fileLabel}><AiOutlineCloudUpload/> Upload new photo</label>
                         <input type="file" onChange={e=>{
                             setNewImg(e.target.value)
                             setNewImgUrl(URL.createObjectURL(e.target.files[0]))
                             setImgChange(true)
-                        }}/>
+                        }} id={s.file}/>
                     </div>
                     <div className={s.btn} onClick={()=>{
                         console.log(choseProduct, imgChange)
                         setChoseProduct(null)
-                        imgChange(false)
+                        setImgChange(false)
                     }}>SAVE</div>
                 </div>
             )}

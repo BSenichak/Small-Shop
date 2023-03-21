@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import { addAdminProduct } from "../../../store/admin/addProductAdminActions";
 import { loadCategories } from "../../../store/home/categories/categoriesActions";
 import s from "./AdminAddProduct.module.css";
+import { AiOutlineCloudUpload } from "react-icons/ai"
+
 
 export const AdminAddProduct = (props) => {
   const [render, setRender] = useState(false);
@@ -36,6 +38,7 @@ export const AdminAddProduct = (props) => {
       <div className={`${s.formItem} ${s.image}`}>
         <label>Image</label>
         <img src={imageUrl?imageUrl:"/image/emptyimg.svg"} alt="" />
+        <label htmlFor={s.file} className={s.fileLabel}><AiOutlineCloudUpload/> Upload new photo</label>
         <input
           type="file"
           value={image}
@@ -44,6 +47,7 @@ export const AdminAddProduct = (props) => {
             setImageUrl(URL.createObjectURL(e.target.files[0]));
 						setImageFile(e.target.files[0])
           }}
+          id={s.file}
         />
       </div>
       <div className={s.formItem}>

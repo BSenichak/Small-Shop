@@ -92,3 +92,17 @@
     place-items: center;
     backdrop-filter: blur(5px);
 }
+
+#file {
+    display: none;
+}
+
+.fileLabel {
+    width: 100%;
+    background-color: var(--quaternary-background);
+    padding: 0.5rem 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}

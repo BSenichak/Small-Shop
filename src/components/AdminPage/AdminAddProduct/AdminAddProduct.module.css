@@ -82,3 +82,17 @@
     background-color: var(--love-color);
     color: var(--primary-color);
 }
+
+#file {
+    display: none;
+}
+
+.fileLabel {
+    width: 100%;
+    background-color: var(--quaternary-background);
+    padding: 0.5rem 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}

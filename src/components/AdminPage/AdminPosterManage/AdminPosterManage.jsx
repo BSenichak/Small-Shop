@@ -8,6 +8,8 @@ import {
 import Loader from "../../Loader/Loader";
 import AdminPoster from "./AdminPoster";
 import s from "./AdminPosterManage.module.css";
+import { AiOutlineCloudUpload } from "react-icons/ai"
+
 
 export const AdminPosterManage = (props) => {
   const [render, setRender] = useState(true);
@@ -43,6 +45,7 @@ export const AdminPosterManage = (props) => {
         </div>
         <div className={`${s.formItem} ${s.image}`}>
           <img src={imageUrl ? imageUrl : "/image/emptyimg.svg"} alt="" />
+          <label htmlFor={s.file} className={s.fileLabel}><AiOutlineCloudUpload/> Upload new photo</label>
           <input
             type="file"
             value={image}
@@ -51,6 +54,7 @@ export const AdminPosterManage = (props) => {
               setImageUrl(URL.createObjectURL(e.target.files[0]));
               setImageFile(e.target.files[0]);
             }}
+            id={s.file}
           />
         </div>
         <div className={s.addBtn} onClick={()=>{
