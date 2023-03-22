@@ -12,11 +12,14 @@ export const PosterItem = (props) => {
     ).then((url) => setImage(url));
   });
   return (
-    <img style={loading?{display: "none"}:{}}
-      src={image}
-      alt={`poster${props.data.id}`}
-      onLoad={()=>setLoading(false)}
-    />
+    <div style={{width: "100%", display: "flex", justifyContent: "center"}}>
+      <img style={loading?{display: "none"}:{}}
+        src={image}
+        alt={`poster${props.data.id}`}
+        onLoad={()=>setLoading(false)}
+      />
+    </div>
+      
   );
 };
 

@@ -31,7 +31,7 @@ export const Poster = (props) => {
     >
       {!loading && (
         <div className={s.bg}>
-          <div className={s.posterSlider} style={{ left: `-${number}00%` }}>
+          <div className={s.posterSlider} style={{ left: `-${number}00%`, width: `${posters.length}00%`}}>
             {posters.map((el) => (
               <PosterItem data={el} key={el.id}/>
             ))}
