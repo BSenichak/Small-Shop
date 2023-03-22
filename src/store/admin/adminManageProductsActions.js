@@ -1,5 +1,6 @@
 import {
     collection,
+    deleteDoc,
     doc,
     endAt,
     getDocs,
@@ -127,5 +128,46 @@ export const failedAdminUpdateProduct = (err) => {
 export const successAdminUpdateProduct = () => {
     return {
         type: SUCCESS_ADMIN_UPDATE_PRODUCT,
+    };
+};
+
+export const START_ADMIN_DELETE_PRODUCT = "START_ADMIN_DELETE_PRODUCT";
+export const FAILED_ADMIN_DELETE_PRODUCT = "FAILED_ADMIN_DELETE_PRODUCT";
+export const SUCCESS_ADMIN_DELETE_PRODUCT = "SUCCESS_ADMIN_DELETE_PRODUCT";
+
+export const adminDeletePrduct = (uuid, img, category) => {
+    return (dispatch) => {
+        dispatch(startAdminDeletePrduct());
+        deleteDoc(doc(db, `products`, uuid))
+            .then(() => {
+                deleteObject(
+                    ref(
+                        storage,
+                        `products/${category.replace(/ /g, "")}/${img}`
+                    )
+                )
+                    .then(() => dispatch(successAdminDeletePrduct()))
+                    .catch((err) => dispatch(failedAdminDeletePrduct(err)));
+            })
+            .catch((err) => dispatch(failedAdminDeletePrduct(err)));
+    };
+};
+
+export const startAdminDeletePrduct = () => {
+    return {
+        type: START_ADMIN_DELETE_PRODUCT,
+    };
+};
+
+export const failedAdminDeletePrduct = (err) => {
+    return {
+        type: FAILED_ADMIN_DELETE_PRODUCT,
+        payload: err,
+    };
+};
+
+export const successAdminDeletePrduct = () => {
+    return {
+        type: SUCCESS_ADMIN_DELETE_PRODUCT,
     };
 };

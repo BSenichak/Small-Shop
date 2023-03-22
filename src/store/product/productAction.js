@@ -12,7 +12,7 @@ export const loadProduct = (category, id) => {
     getDocs(
       query(
         collection(db, "products"),
-        where("category", "==", category),
+        where("category", "==", category.replace(/%20/g, " ")),
         where("id", "==", id)
       )
     )

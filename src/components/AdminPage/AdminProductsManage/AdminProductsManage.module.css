@@ -104,6 +104,11 @@
     color: var(--primary-color);
 }
 
+.btnDel {
+    background-color: var(--danger-background);
+    color: var(--danger-color);
+}
+
 #file {
     display: none;
 }
@@ -117,3 +122,32 @@
     align-items: center;
     gap: 1rem;
 }
+
+.conWrapper {
+    position: absolute;
+    inset: 0;
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.confWindow {
+    background-color: var(--quaternary-background);
+    width: 50%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    padding: 2rem;
+}
+
+.confTitle {
+    grid-column: 1/-1;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+.confWindow .btn {
+    grid-column: span 1;
+}
+

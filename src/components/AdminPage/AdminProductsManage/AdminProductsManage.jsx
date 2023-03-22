@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { adminSearchProduct, adminUpdateProduct } from "../../../store/admin/adminManageProductsActions";
+import {
+    adminDeletePrduct,
+    adminSearchProduct,
+    adminUpdateProduct,
+} from "../../../store/admin/adminManageProductsActions";
 import { adminLoadCategories } from "../../../store/admin/adminCategoryManageActions";
 import Loader from "../../Loader/DotsLoader";
 import { AiOutlineCloudUpload } from "react-icons/ai";
@@ -19,6 +23,7 @@ export const AdminProductsManage = (props) => {
     const [newImg, setNewImg] = useState("");
     const [newImgUrl, setNewImgUrl] = useState("");
     const [newImgFile, setNewImgFile] = useState(undefined);
+    const [confState, setConfState] = useState(false);
 
     if (render) {
         props.loadCategories();
@@ -101,6 +106,7 @@ export const AdminProductsManage = (props) => {
                                 desc: e.target.value,
                             })
                         }
+                        rows={4}
                         className={s.input}
                     ></textarea>
                     <select
@@ -139,7 +145,7 @@ export const AdminProductsManage = (props) => {
                                     URL.createObjectURL(e.target.files[0])
                                 );
                                 setImgChange(true);
-                                setNewImgFile(e.target.files[0])
+                                setNewImgFile(e.target.files[0]);
                             }}
                             id={s.file}
                         />
@@ -147,13 +153,58 @@ export const AdminProductsManage = (props) => {
                     <div
                         className={s.btn}
                         onClick={() => {
-                            console.log(choseProduct, imgChange?newImg.substring(newImg.lastIndexOf("\\")+1):null, newImgFile);
-                            props.updateProduct(choseProduct, imgChange?newImg.substring(newImg.lastIndexOf("\\")+1):null, newImgFile)
+                            console.log(
+                                choseProduct,
+                                imgChange
+                                    ? newImg.substring(
+                                          newImg.lastIndexOf("\\") + 1
+                                      )
+                                    : null,
+                                newImgFile
+                            );
+                            props.updateProduct(
+                                choseProduct,
+                                imgChange
+                                    ? newImg.substring(
+                                          newImg.lastIndexOf("\\") + 1
+                                      )
+                                    : null,
+                                newImgFile
+                            );
                             setChoseProduct(null);
                             setImgChange(false);
                         }}
                     >
                         SAVE
+                    </div>
+                    <div
+                        className={`${s.btn} ${s.btnDel}`}
+                        onClick={() => setConfState(true)}
+                    >
+                        DELETE
+                    </div>
+                </div>
+            )}
+            {confState && (
+                <div className={s.conWrapper}>
+                    <div className={s.confWindow}>
+                        <div className={s.confTitle}>Confirm delete action</div>
+                        <div
+                            className={s.btn}
+                            onClick={() => setConfState(false)}
+                        >
+                            CANCEL
+                        </div>
+                        <div
+                            className={`${s.btn} ${s.btnDel}`}
+                            onClick={() => {
+                                setConfState(false);
+                                props.deleteProduct(choseProduct.uuid, choseProduct.img, choseProduct.category);
+                                setChoseProduct(null);
+                            }}
+                        >
+                            DELETE
+                        </div>
                     </div>
                 </div>
             )}
@@ -170,7 +221,10 @@ const mapDispatchToProps = (dispatch) => {
     return {
         searchChange: (str) => dispatch(adminSearchProduct(str)),
         loadCategories: () => dispatch(adminLoadCategories()),
-        updateProduct: (data, img, file) => dispatch(adminUpdateProduct(data, img, file))
+        updateProduct: (data, img, file) =>
+            dispatch(adminUpdateProduct(data, img, file)),
+        deleteProduct: (uuid, img, category) =>
+            dispatch(adminDeletePrduct(uuid, img, category)),
     };
 };
 

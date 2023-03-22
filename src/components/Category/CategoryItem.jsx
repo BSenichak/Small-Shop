@@ -11,12 +11,12 @@ export const CategoryItem = (props) => {
     const [imageLoading, setImageLoading] = useState(true)
     useEffect(()=>{
         getDownloadURL(
-            ref(storage, `products/${props?.data?.category}/${props?.data?.img}`)
+            ref(storage, `products/${props?.data?.category.replace(/ /g, "")}/${props?.data?.img}`)
           ).then((url) => setImage(url))
     })
   return (
     <Link
-      to={`/product/${props.data.category}/${props.data.id}`}
+      to={`/product/${props.data.category.replace(/ /g, "%20")}/${props.data.id}`}
       className={s.item}
       key={props.data.id}
     >

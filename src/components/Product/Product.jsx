@@ -15,10 +15,11 @@ export const Product = (props) => {
   const loading = useSelector((state) => state.product.loading);
   const cart = useSelector((state) => state.header.cart);
   const [image, setImage] = useState("");
+  console.log(category)
   useEffect(() => {
     dispatch(loadProduct(category, Number(id)));
     getDownloadURL(
-      ref(storage, `products/${data.category}/${data.img}`)
+      ref(storage, `products/${data.category.replace(/ /g, "")}/${data.img}`)
     ).then((url) => setImage(url));
   }, [category, id, dispatch, data.category, data.img]);
 
