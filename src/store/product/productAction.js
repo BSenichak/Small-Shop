@@ -1,4 +1,12 @@
-import { collection, getDocs, query, where } from "firebase/firestore";
+import {
+  arrayUnion,
+  collection,
+  doc,
+  getDocs,
+  query,
+  updateDoc,
+  where,
+} from "firebase/firestore";
 import { db } from "../../plagins/firebase";
 
 export const LOAD_PRODUCT = "LOAD_PRODUCT";
@@ -16,7 +24,11 @@ export const loadProduct = (category, id) => {
         where("id", "==", id)
       )
     )
-      .then((res) => dispatch(successLoadProduct(res.docs[0].data())))
+      .then((res) => {
+        let result = res.docs[0].data();
+        result.uuid = res.docs[0].id;
+        dispatch(successLoadProduct(result));
+      })
       .catch((err) => dispatch(failedLoadProduct(err)));
   };
 };
@@ -38,5 +50,48 @@ export const successLoadProduct = (data) => {
   return {
     type: SUCCESS_LOAD_PRODUCT,
     payload: data,
+  };
+};
+
+/* --- Sending comment --- */
+
+export const START_USER_ADD_COMMENT_TO_PRODUCT =
+  "START_USER_ADD_COMMENT_TO_PRODUCT";
+export const FAILED_USER_ADD_COMMENT_TO_PRODUCT =
+  "FAILED_USER_ADD_COMMENT_TO_PRODUCT";
+export const SUCCESS_USER_ADD_COMMENT_TO_PRODUCT =
+  "SUCCESS_USER_ADD_COMMENT_TO_PRODUCT";
+
+export const userAddComentToProduct = (uuid, name, text) => {
+  return (dispatch) => {
+    dispatch(startUserAddCommentToProduct());
+    updateDoc(doc(db, "products", uuid), {
+      comments: arrayUnion({
+        time: Date.now(),
+        name,
+        text,
+      }),
+    })
+      .then(() => dispatch(successUserAddCommentToProduct()))
+      .catch((err) => dispatch(failedUserAddCommentToProduct(err)));
+  };
+};
+
+export const startUserAddCommentToProduct = () => {
+  return {
+    type: START_USER_ADD_COMMENT_TO_PRODUCT,
+  };
+};
+
+export const failedUserAddCommentToProduct = (err) => {
+  return {
+    type: FAILED_USER_ADD_COMMENT_TO_PRODUCT,
+    payload: err,
+  };
+};
+
+export const successUserAddCommentToProduct = () => {
+  return {
+    type: SUCCESS_USER_ADD_COMMENT_TO_PRODUCT,
   };
 };

@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { addItemToCart } from "../../store/header/headerActions";
-import { loadProduct } from "../../store/product/productAction";
+import {
+  loadProduct,
+  userAddComentToProduct,
+} from "../../store/product/productAction";
 import { getDownloadURL, ref } from "firebase/storage";
 import { storage } from "../../plagins/firebase";
 import s from "./Product.module.css";
@@ -15,6 +18,10 @@ export const Product = (props) => {
   const loading = useSelector((state) => state.product.loading);
   const cart = useSelector((state) => state.header.cart);
   const [image, setImage] = useState("");
+
+  const [commentName, setCommentName] = useState("");
+  const [commentText, setCommentText] = useState("");
+
   useEffect(() => {
     dispatch(loadProduct(category, Number(id)));
     getDownloadURL(
@@ -64,14 +71,46 @@ export const Product = (props) => {
           <div className={s.commentBar}>
             <div className={s.comentTitle}> Comments</div>
             <div className={s.commentForm}>
-              <textarea placeholder="Write your comment about this product"></textarea>
-              <input type="text" placeholder="Your name"/>
-              <div className={s.send}>send</div>
+              <textarea
+                placeholder="Write your comment about this product"
+                value={commentText}
+                onChange={(e) => setCommentText(e.target.value)}
+              ></textarea>
+              <input
+                type="text"
+                placeholder="Your name"
+                value={commentName}
+                onChange={(e) => setCommentName(e.target.value)}
+              />
+              <div
+                className={s.send}
+                onClick={
+                  commentName.length && commentText.length
+                    ? () => {
+                        props.addComment(data.uuid, commentName, commentText);
+                        dispatch(loadProduct(category, Number(id)));
+                        setCommentName("");
+                        setCommentText("");
+                      }
+                    : undefined
+                }
+              >
+                send
+              </div>
             </div>
-            <div className={s.comment}>
-                <div className={s.author}>BADYASIK</div>
-                <div className={s.comrntText}>Tovar  horoshyi</div>
-            </div>
+            {props.comments &&
+              props.comments.map((el) => (
+                <div className={s.comment} key={el.time}>
+                  <div className={s.ctitle}>
+                    <div className={s.author}>{el.name}</div>
+                    <div className={s.comrntTime}>
+                      {new Date(el.time).toDateString()}{" "}
+                      {new Date(el.time).toTimeString().slice(0, 8)}
+                    </div>
+                  </div>
+                  <div className={s.comrntText}>{el.text}</div>
+                </div>
+              ))}
           </div>
         </div>
       )}
@@ -79,13 +118,15 @@ export const Product = (props) => {
   );
 };
 
+const mapStateToProps = (state) => ({
+  comments: state?.product?.data?.comments,
+});
 
-const mapStateToProps = (state) => ({})
-
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
+    addComment: (uuid, name, text) =>
+      dispatch(userAddComentToProduct(uuid, name, text)),
+  };
+};
 
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Product)
+export default connect(mapStateToProps, mapDispatchToProps)(Product);
