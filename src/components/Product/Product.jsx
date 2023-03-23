@@ -3,7 +3,7 @@ import { connect, useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { addItemToCart } from "../../store/header/headerActions";
 import { loadProduct } from "../../store/product/productAction";
-import { getDownloadURL, ref,  } from "firebase/storage";
+import { getDownloadURL, ref } from "firebase/storage";
 import { storage } from "../../plagins/firebase";
 import s from "./Product.module.css";
 
@@ -31,14 +31,15 @@ export const Product = (props) => {
       ) : (
         <div className={s.content}>
           <div className={s.imageBox}>
-            <img
-              src={image}
-              alt="product"
-            />
+            <img src={image} alt="product" />
           </div>
           <div className={s.infoBox}>
-            <h2>{data.name}</h2>
-            <div>${data.price}</div>
+            <div className={s.title}>{data.name}</div>
+            <div className={s.desc}>{data.desc}</div>
+            <div className={s.priceBar}>
+              <div className={s.taringBar}>Rating: {0}</div>
+              <div className={s.price}>${data.price}</div>
+            </div>
             <div
               onClick={() =>
                 dispatch(
@@ -60,10 +61,31 @@ export const Product = (props) => {
                 : "add to cart"}
             </div>
           </div>
+          <div className={s.commentBar}>
+            <div className={s.comentTitle}> Comments</div>
+            <div className={s.commentForm}>
+              <textarea placeholder="Write your comment about this product"></textarea>
+              <input type="text" placeholder="Your name"/>
+              <div className={s.send}>send</div>
+            </div>
+            <div className={s.comment}>
+                <div className={s.author}>BADYASIK</div>
+                <div className={s.comrntText}>Tovar  horoshyi</div>
+            </div>
+          </div>
         </div>
       )}
     </div>
   );
 };
 
-export default connect()(Product);
+
+const mapStateToProps = (state) => ({})
+
+const mapDispatchToProps = dispatch => {
+  return {
+
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Product)

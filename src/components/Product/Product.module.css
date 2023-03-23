@@ -29,6 +29,7 @@
 .content {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  gap: 2rem;
   padding: 2rem 0;
   max-width: 1024px;
   margin: 0 auto;
@@ -54,3 +55,68 @@
   width: 100%;
   text-align: center;
 }
+
+.title {
+  font-size: 2rem;
+  text-transform: capitalize;
+}
+
+.desc {
+  width: 100%;
+  font-size: 0.9rem;
+  color: var(--secondary-color);
+  flex-grow: 1;
+}
+
+.priceBar {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1rem;
+}
+
+.commentBar {
+  grid-column: 1/-1;
+}
+
+.comentTitle {
+  text-align: center;
+  font-size: 1.3rem;
+}
+
+.commentForm {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  padding: 1rem;
+  gap: 0.5rem;
+}
+
+.commentForm textarea {
+  grid-column: 1/-1;
+}
+
+.commentForm textarea, .commentForm input {
+  background-color: var(--quaternary-background);
+  color:  var(--quaternary-color);
+  border: none;
+  resize: none;
+}
+
+.send {
+  display: flex;
+  place-content: center;
+  background-color: var(--success-background);
+  color: var(--success-color);
+  text-transform: uppercase;
+}
+
+.commentForm textarea:focus, .commentForm input:focus {
+  outline: none;
+}
+
+.comment {
+  margin: 1rem;
+  border: 1px solid var(--quaternary-color);
+  padding: 0.5rem;
+}
+
