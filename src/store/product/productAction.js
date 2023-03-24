@@ -1,4 +1,5 @@
 import {
+  arrayRemove,
   arrayUnion,
   collection,
   doc,
@@ -94,5 +95,43 @@ export const failedUserAddCommentToProduct = (err) => {
 export const successUserAddCommentToProduct = () => {
   return {
     type: SUCCESS_USER_ADD_COMMENT_TO_PRODUCT,
+  };
+};
+/* --- deleting comment --- */
+
+export const START_USER_REMOVE_COMMENT_OF_PRODUCT =
+  "START_USER_REMOVE_COMMENT_OF_PRODUCT";
+export const FAILED_USER_REMOVE_COMMENT_OF_PRODUCT =
+  "FAILED_USER_REMOVE_COMMENT_OF_PRODUCT";
+export const SUCCESS_USER_REMOVE_COMMENT_OF_PRODUCT =
+  "SUCCESS_USER_REMOVE_COMMENT_OF_PRODUCT";
+
+export const userRemoveComentToProduct = (uuid, comment) => {
+  return (dispatch) => {
+    dispatch(startUserRemoveCommentOfProduct());
+    updateDoc(doc(db, "products", uuid), {
+      comments: arrayRemove(comment),
+    })
+      .then(() => dispatch(successUserRemoveCommentOfProduct()))
+      .catch((err) => dispatch(failedUserRemoveCommentOfProduct(err)));
+  };
+};
+
+export const startUserRemoveCommentOfProduct = () => {
+  return {
+    type: START_USER_REMOVE_COMMENT_OF_PRODUCT,
+  };
+};
+
+export const failedUserRemoveCommentOfProduct = (err) => {
+  return {
+    type: FAILED_USER_REMOVE_COMMENT_OF_PRODUCT,
+    payload: err,
+  };
+};
+
+export const successUserRemoveCommentOfProduct = () => {
+  return {
+    type: SUCCESS_USER_REMOVE_COMMENT_OF_PRODUCT,
   };
 };

@@ -5,10 +5,12 @@ import { addItemToCart } from "../../store/header/headerActions";
 import {
   loadProduct,
   userAddComentToProduct,
+  userRemoveComentToProduct,
 } from "../../store/product/productAction";
 import { getDownloadURL, ref } from "firebase/storage";
 import { storage } from "../../plagins/firebase";
 import s from "./Product.module.css";
+import { BsTrash } from "react-icons/bs";
 
 export const Product = (props) => {
   const dispatch = useDispatch();
@@ -84,7 +86,12 @@ export const Product = (props) => {
                 onClick={
                   !!props.userName && commentText.length
                     ? () => {
-                        props.addComment(data.uuid, props.userName, commentText, props.userUUID);
+                        props.addComment(
+                          data.uuid,
+                          props.userName,
+                          commentText,
+                          props.userUUID
+                        );
                         dispatch(loadProduct(category, Number(id)));
                         setCommentText("");
                       }
@@ -100,8 +107,16 @@ export const Product = (props) => {
                   <div className={s.ctitle}>
                     <div className={s.author}>{el.name}</div>
                     <div className={s.comrntTime}>
-                      {new Date(el.time).toDateString()}{" "}
+                      {new Date(el.time).toDateString() + " "}
                       {new Date(el.time).toTimeString().slice(0, 8)}
+                      {(props.userUUID === el?.author || props.admin) && (
+                        <BsTrash
+                          onClick={() => {
+                            props.removeComment(data.uuid, el);
+                            dispatch(loadProduct(category, Number(id)));
+                          }}
+                        />
+                      )}
                     </div>
                   </div>
                   <div className={s.comrntText}>{el.text}</div>
@@ -118,12 +133,15 @@ const mapStateToProps = (state) => ({
   comments: state?.product?.data?.comments,
   userName: state?.account?.fullData?.firstName,
   userUUID: state?.account?.uuid,
+  admin: state?.account?.fullData?.root === "admin",
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {
     addComment: (uuid, name, text, author) =>
       dispatch(userAddComentToProduct(uuid, name, text, author)),
+    removeComment: (uuid, comment) =>
+      dispatch(userRemoveComentToProduct(uuid, comment)),
   };
 };
 
