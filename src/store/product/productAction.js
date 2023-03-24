@@ -62,7 +62,7 @@ export const FAILED_USER_ADD_COMMENT_TO_PRODUCT =
 export const SUCCESS_USER_ADD_COMMENT_TO_PRODUCT =
   "SUCCESS_USER_ADD_COMMENT_TO_PRODUCT";
 
-export const userAddComentToProduct = (uuid, name, text) => {
+export const userAddComentToProduct = (uuid, name, text,  author) => {
   return (dispatch) => {
     dispatch(startUserAddCommentToProduct());
     updateDoc(doc(db, "products", uuid), {
@@ -70,6 +70,7 @@ export const userAddComentToProduct = (uuid, name, text) => {
         time: Date.now(),
         name,
         text,
+        author,
       }),
     })
       .then(() => dispatch(successUserAddCommentToProduct()))

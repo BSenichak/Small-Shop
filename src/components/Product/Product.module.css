@@ -95,7 +95,7 @@
   grid-column: 1/-1;
 }
 
-.commentForm textarea, .commentForm input {
+.commentForm textarea, .commentName {
   background-color: var(--quaternary-background);
   color:  var(--quaternary-color);
   border: none;
@@ -110,7 +110,7 @@
   text-transform: uppercase;
 }
 
-.commentForm textarea:focus, .commentForm input:focus {
+.commentForm textarea:focus{
   outline: none;
 }
 

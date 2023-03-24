@@ -18,8 +18,6 @@ export const Product = (props) => {
   const loading = useSelector((state) => state.product.loading);
   const cart = useSelector((state) => state.header.cart);
   const [image, setImage] = useState("");
-
-  const [commentName, setCommentName] = useState("");
   const [commentText, setCommentText] = useState("");
 
   useEffect(() => {
@@ -76,20 +74,18 @@ export const Product = (props) => {
                 value={commentText}
                 onChange={(e) => setCommentText(e.target.value)}
               ></textarea>
-              <input
-                type="text"
-                placeholder="Your name"
-                value={commentName}
-                onChange={(e) => setCommentName(e.target.value)}
-              />
+              <div className={s.commentName}>
+                {!!props.userName
+                  ? props.userName
+                  : "Only authorized users can comment"}
+              </div>
               <div
                 className={s.send}
                 onClick={
-                  commentName.length && commentText.length
+                  !!props.userName && commentText.length
                     ? () => {
-                        props.addComment(data.uuid, commentName, commentText);
+                        props.addComment(data.uuid, props.userName, commentText, props.userUUID);
                         dispatch(loadProduct(category, Number(id)));
-                        setCommentName("");
                         setCommentText("");
                       }
                     : undefined
@@ -120,12 +116,14 @@ export const Product = (props) => {
 
 const mapStateToProps = (state) => ({
   comments: state?.product?.data?.comments,
+  userName: state?.account?.fullData?.firstName,
+  userUUID: state?.account?.uuid,
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addComment: (uuid, name, text) =>
-      dispatch(userAddComentToProduct(uuid, name, text)),
+    addComment: (uuid, name, text, author) =>
+      dispatch(userAddComentToProduct(uuid, name, text, author)),
   };
 };
 
