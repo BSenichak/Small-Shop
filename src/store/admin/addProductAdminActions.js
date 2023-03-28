@@ -24,7 +24,7 @@ export const addAdminProduct = (
         imglink.indexOf(".")
       )}`,
       desc,
-      price,
+      price: Number(price)
     })
       .then(() => {
         if (imglink) {

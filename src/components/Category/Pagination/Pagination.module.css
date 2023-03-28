@@ -1,0 +1,26 @@
+.pagination {
+    display: flex;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    grid-column: 1/-1;
+    width: fit-content;
+    justify-self: center;
+    margin: 0.5rem;
+}
+
+.pagination__item {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    color: var(--primary-color);
+    padding: 0.3rem;
+}
+
+.pagination__item:not(:last-child) {
+    border-right: 1px solid #d1d5db;
+}
+
+.pagination__item__active {
+    background-color: #d1d5db;
+}

@@ -1,4 +1,4 @@
-import { FAILED_LOAD_CATEGORY_PRODUCT, START_LOAD_CATEGORY_PRODUCT, SUCCESS_LOAD_CATEGORY_PRODUCT } from "./categotyActions"
+import { FAILED_LOAD_CATEGORY_PRODUCT, SET_PRODUCTS_COUNT, START_LOAD_CATEGORY_PRODUCT, SUCCESS_LOAD_CATEGORY_PRODUCT } from "./categotyActions"
 
 const initalState = {
     loading: false,
@@ -6,7 +6,8 @@ const initalState = {
     products: [],
     sortType: null,
     filterType: null,
-    Category: null
+    Category: null,
+    poductsCount: 0,
 }
 
 export default function categoryReducer (state=initalState, action){
@@ -28,6 +29,11 @@ export default function categoryReducer (state=initalState, action){
                 ...state,
                 loading:false,
                 products: action.payload
+            }
+        case SET_PRODUCTS_COUNT:
+            return {
+                ...state,
+                productsCount: action.payload
             }
         default:
             return state
