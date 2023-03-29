@@ -1,0 +1,47 @@
+.wrapper {
+  max-width: 1024px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 2rem;
+}
+
+.wrapper section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+	margin-bottom: 2rem;
+}
+
+.sectionTitle {
+  grid-column: 1/-1;
+	font-size: 1.2rem;
+}
+
+.formItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.formItem label {
+  font-size: 0.8rem;
+  color: var(--quaternary-color);
+}
+
+.formItem input {
+  font-size: 0.8rem;
+  color: var(--quaternary-color);
+  background-color: var(--quaternary-background);
+  border: none;
+  padding: 0.3rem;
+}
+
+.formItem input:focus {
+  outline: none;
+}
+
+.itemWrapper {
+	grid-column: 1/-1;
+	display: flex;
+}
