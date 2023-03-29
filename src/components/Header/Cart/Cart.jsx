@@ -36,7 +36,7 @@ export const Cart = (props) => {
           {cartItems.map((el) => (
             <Cartitem el={el} />
           ))}
-          <Link to={"/"} className={s.orderBtn}>
+          <Link to={"/order"} className={s.orderBtn} onClick={()=>dispatch(closeCart())}>
             TO ORDER
           </Link>
         </div>

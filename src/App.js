@@ -15,6 +15,7 @@ import { loadCart, setPageTheme } from "./store/header/headerActions";
 import { checkLogin } from "./store/account/accountActions";
 import UserSetings from "./components/Account/UserSetings/UserSetings";
 import AdminPage from "./components/AdminPage/AdminPage";
+import OrderPage from "./components/OrderPage/OrderPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -54,6 +55,7 @@ function App() {
           ) : (
             <Route path="/admin/*" element={<NotFound />}></Route>
           )}
+          <Route path="/order" element={<OrderPage/>}/>
         </Routes>
       </main>
       <Footer />
