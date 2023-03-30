@@ -11,12 +11,12 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
-	margin-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 
 .sectionTitle {
   grid-column: 1/-1;
-	font-size: 1.2rem;
+  font-size: 1.2rem;
 }
 
 .formItem {
@@ -42,6 +42,69 @@
 }
 
 .itemWrapper {
-	grid-column: 1/-1;
-	display: flex;
+  grid-column: 1/-1;
+  display: flex;
+}
+
+.itemWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid gray;
+  padding: 0.5rem 0;
+}
+
+.info {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-basis: 40%;
+  gap: 2rem;
+  padding: 0 1rem;
+}
+
+.itemWrapper img {
+  height: 3rem;
+}
+
+.itemWrapper input {
+  background-color: transparent;
+  border: none;
+  width: 2rem;
+  color: white;
+}
+
+.stepper_input {
+  display: flex;
+  border: 1px solid #d1d5db;
+  height: 1.5rem;
+  
+}
+
+.stepper_input__button {
+  background: #d1d5db;
+  border: none;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  width: 1rem;
+}
+
+.stepper_input__input {
+  border: none;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+}
+
+.stepper_input__input:focus {
+  outline: none;
+}
+
+.price {
+  flex-basis: 10%;
+}
+
+.itemWrapper svg {
+  flex-basis: 5%;
 }
