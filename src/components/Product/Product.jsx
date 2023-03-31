@@ -58,6 +58,7 @@ export const Product = (props) => {
                     img: data.img,
                     count: 1,
                     order: cart.length,
+                    uuid: data.uuid
                   })
                 )
               }

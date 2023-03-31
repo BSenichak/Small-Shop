@@ -108,3 +108,53 @@
 .itemWrapper svg {
   flex-basis: 5%;
 }
+
+.wrapper section:last-child {
+  margin-bottom: 0;
+  padding: 2rem 0;
+}
+
+.summ {
+  font-size: 1.2rem;
+  color: var(--success-color);
+  display: flex;
+  place-content: center;
+}
+
+.btn {
+  background-color: var(--success-background);
+  display: flex;
+  place-content: center;
+  padding: 1rem 0;
+}
+
+.errors {
+  font-size: 0.7rem;
+  color: var(--danger-color);
+  text-decoration: underline;
+  grid-column: 1/-1;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
+}
+
+#firstName, #secondName, #mobileNumber, #email, #city, #street, #houseNumber, #floorNumber, #postalCode {
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.error {
+  color: var(--danger-color);
+}
+
+
+.btnOk {
+  background-color: var(--success-background);
+  color: var(--success-color);
+  cursor: pointer;
+}
+
+.btnNotOk {
+  background-color: var(--danger-background);
+  color: var(--danger-color);
+  cursor: not-allowed;
+}
