@@ -19,6 +19,7 @@ export const userOrdering = (user, products, userUUID) => {
       contacts,
       products: prod,
       status: "start",
+      data: +new Date(),
     })
     .catch((err)=>dispatch(failedUserOrdering(err)));
     dispatch(successUserOrdering(ref.id))
