@@ -13,6 +13,7 @@ import AdminAddProduct from "./AdminAddProduct/AdminAddProduct";
 import AdminPosterManage from "./AdminPosterManage/AdminPosterManage";
 import AdminCategoriesManage from "./AdminCategoriesManage/AdminCategoriesManage"
 import AdminProductsManage from "./AdminProductsManage/AdminProductsManage";
+import AdminOrders from "./AdminOrders/AdminOrders";
 
 export const AdminPage = (props) => {
   const currentLink = useLocation().pathname.substring(7);
@@ -56,9 +57,9 @@ export const AdminPage = (props) => {
           Manage product
         </Link>
         <Link
-          to={"orderlist"}
+          to={"orders"}
           className={`${s.link} ${
-            currentLink === "orderlist" ? s.actLink : ""
+            currentLink.substring(0, 6) === "orders" ? s.actLink : ""
           }`}
         >
           <AiOutlineFileText />
@@ -71,7 +72,7 @@ export const AdminPage = (props) => {
           <Route path="categorymanage" element={<AdminCategoriesManage/>} />
           <Route path="addproduct" element={<AdminAddProduct />} />
           <Route path="manageproduct" element={<AdminProductsManage/>} />
-          <Route path="orderlist" element={"orderlist"} />
+          <Route path="/orders/*" element={<AdminOrders/>} />
         </Routes>
       </div>
     </div>
