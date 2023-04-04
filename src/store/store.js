@@ -7,13 +7,13 @@ import adminReducer from "./admin/adminReducer";
 import categoryReducer from "./category/categoryReducer";
 import headerReducer from "./header/headerReducer";
 import categoriesReducer from "./home/categories/categoriesReducer";
-import homeReducer from "./home/homeReducer";
 import posterReducer from "./home/poster/posterReducer";
 import productReducer from "./product/productReducer";
 import orderReducer from "./order/orderReducer";
+import adminOrderReducer from "./admin/adminOrder/adminOrderReducer";
+
 const generalReducer = combineReducers({
     header: headerReducer,
-    home: homeReducer,
     poster: posterReducer,
     categories: categoriesReducer,
     category: categoryReducer,
@@ -22,6 +22,7 @@ const generalReducer = combineReducers({
     setings: setingsReducer,
     admin: adminReducer,
     order: orderReducer,
+    adminOrder: adminOrderReducer
 })
 
 

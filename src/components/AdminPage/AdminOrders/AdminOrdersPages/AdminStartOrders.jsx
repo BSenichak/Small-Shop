@@ -1,19 +1,35 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import s from "../AdminOrders.module.scss"
+import React, { useState } from "react";
+import { connect } from "react-redux";
+import s from "../AdminOrders.module.scss";
+import { adminLoadOrders } from "../../../../store/admin/adminOrder/adminOrderActions";
+import AOrderElement from "./AOrderElement";
+
 
 export const AdminStartOrders = (props) => {
+  const [render, setRender] = useState(true);
+  if (render) {
+    props.loadOrders("start");
+    setRender(false);
+  }
+
   return (
-    <div className={s.itemWrapper}>AdminStartOrders</div>
-  )
-}
+    <div className={s.itemWrapper}>
+      {props.orders.map((el) => (
+        <AOrderElement data={el} key={el.uuid}/>
+      ))}
+    </div>
+  );
+};
 
-const mapStateToProps = (state) => ({})
+const mapStateToProps = (state) => ({
+  loading: state.adminOrder?.loading,
+  orders: state.adminOrder?.orders,
+});
 
-const mapDispatchToProps = dispatch =>{
-    return {
-        
-    }
-}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    loadOrders: (status) => dispatch(adminLoadOrders(status)),
+  };
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(AdminStartOrders)
+export default connect(mapStateToProps, mapDispatchToProps)(AdminStartOrders);

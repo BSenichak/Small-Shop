@@ -14,6 +14,46 @@
     }
     a.active {
         background-color: var(--love-color);
-        color: var(--primaty-color);
+        color: var(--primary-color);
+    }
+}
+
+.item {
+    .titleBar {
+        display: flex;
+        justify-content: space-between;
+        padding: 1rem 0;
+        svg {
+            transition: transform 0.5s;
+        }
+        svg.arrowUp {
+            transform: rotate(180deg);
+            
+        }
+    }
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--primary-color);
+    .contacts {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    }
+    .link {
+        display: flex;
+        justify-content: space-between;
+        text-decoration: none;
+        color: var(--primary-color);
+        padding: 1rem 0;
+    }
+    .btnBar{
+        display: flex;
+        justify-content: flex-end;
+        gap: 2rem;
+        padding: 1rem;
+        .btn {
+            background-color: var(--success-background);
+            color: var(--success-color);
+            padding: 0.5rem 2rem;
+            cursor: pointer;
+        }
     }
 }
