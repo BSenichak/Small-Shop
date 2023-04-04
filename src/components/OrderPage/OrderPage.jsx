@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { clearCart } from "../../store/header/headerActions";
 import OrderItem from "./OrderItem";
 import s from "./OrderPage.module.css";
+import OrderSuccess from "./OrderSuccess";
 
 export const OrderPage = (props) => {
   useEffect(() => {
@@ -11,6 +12,8 @@ export const OrderPage = (props) => {
       .then((res) => setAdrs(res.map((el) => el.city)));
   }, []);
   const [adrs, setAdrs] = useState([]);
+
+  const [overlay, setOverlay] = useState(false);
 
   const [userData, setUserData] = useState({
     fn: "",
@@ -64,6 +67,7 @@ export const OrderPage = (props) => {
 
   return (
     <div className={s.wrapper}>
+      {overlay&&<OrderSuccess/>}
       <div className={s.title}>Ordering</div>
       <section className={s.contactData}>
         <div className={s.sectionTitle}>Contacts</div>
@@ -185,13 +189,15 @@ export const OrderPage = (props) => {
           {props.cartItems.reduce(
             (total, el) => total + el.count * el.price,
             0
-          )}
+          )}{" "}
+          + $5 delivery
         </div>
         <div
           className={`${s.btn} ${btnState ? s.btnOk : s.btnNotOk}`}
           onClick={() => {
             if (btnState) {
-              props.order(userData, props.cartItems);
+              // props.order(userData, props.cartItems);
+              setOverlay(true)
             }
           }}
         >
@@ -245,6 +251,7 @@ export const OrderPage = (props) => {
           )}
         </div>
       </section>
+      
     </div>
   );
 };
@@ -258,8 +265,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     order: (user, products) => {
-      console.log(user, products)
-      dispatch(clearCart())
+      console.log(user, products);
+      dispatch(clearCart());
     },
   };
 };
