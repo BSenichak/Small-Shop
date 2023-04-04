@@ -5,16 +5,18 @@ import { BiDownArrow } from "react-icons/bi";
 import {
   getSingleOrderProducts,
   setOpenOrder,
+  updateOrder,
 } from "../../../../store/admin/adminOrder/adminOrderActions";
 import { Link } from "react-router-dom";
 
 export const AOrderElement = (props) => {
-    const [stat, setStat] = useState("")
-    const [render, setRender] = useState(true)
-    if(render){
-        setStat(props.data.status)
-        setRender(false)
-    }
+  const [stat, setStat] = useState("");
+  const [render, setRender] = useState(true);
+  if (render) {
+    setStat(props.data.status);
+    setRender(false);
+  }
+  console.log(props)
   return (
     <div
       className={`${s.item} ${
@@ -55,19 +57,30 @@ export const AOrderElement = (props) => {
           <div className={s.products}>
             {!props.loading &&
               props.products.map((el) => (
-                <Link to={`/product/${el.category}/${el.id}`} key={el.id} className={s.link}>
+                <Link
+                  to={`/product/${el.category}/${el.id}`}
+                  key={el.id}
+                  className={s.link}
+                >
                   <div>Name: {el.name}</div>
-                  <div>Count: {props.data.products.filter((i) => i.id === el.uuid)[0]?.count} </div>
+                  <div>
+                    Count:{" "}
+                    {
+                      props.data.products.filter((i) => i.id === el.uuid)[0]
+                        ?.count
+                    }{" "}
+                  </div>
                 </Link>
               ))}
           </div>
           <div className={s.btnBar}>
-          <select value={stat} onChange={(e)=>setStat(e.target.value)}>
-            <option value="start" >Start</option>
-            <option value="sended">Sended</option>
-            <option value="Finished">Finished</option>
-          </select>
-          <div className={s.btn}>Save</div>
+            <select value={stat} onChange={(e) => setStat(e.target.value)}>
+              <option value="start">Start</option>
+              <option value="sended">Sended</option>
+              <option value="finished">Finished</option>
+            </select>
+            <div className={s.btn} onClick={()=>{props.updateOrder(props.openOrder, stat, props.data.status)}
+        }>Save</div>
           </div>
         </div>
       )}
@@ -85,6 +98,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     loadProducts: (arr) => dispatch(getSingleOrderProducts(arr)),
     setOpenOrder: (id) => dispatch(setOpenOrder(id)),
+    updateOrder: (uuid, status, ls) => dispatch(updateOrder(uuid, status, ls))
   };
 };
 

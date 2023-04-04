@@ -4,6 +4,7 @@ import {
   getDoc,
   getDocs,
   query,
+  updateDoc,
   where,
 } from "firebase/firestore";
 import { db } from "../../../plagins/firebase";
@@ -63,10 +64,10 @@ export const getSingleOrderProducts = (elements) => {
     elements.forEach((el) => {
       getDoc(doc(db, "products", el.id))
         .then((el) => {
-          let item = el.data()
-          item.uuid = el.id
+          let item = el.data();
+          item.uuid = el.id;
           products.push(item);
-          setTimeout(()=>dispatch(successGetSingleProducts(products)), 300);
+          setTimeout(() => dispatch(successGetSingleProducts(products)), 300);
         })
         .catch((err) => dispatch(failedGetSingleProducts(err)));
     });
@@ -99,5 +100,43 @@ export const setOpenOrder = (id) => {
   return {
     type: SET_OPEN_ORDER,
     payload: id,
+  };
+};
+
+export const START_UPDATE_ORDER = "START_UPDATE_ORDER";
+export const FAILED_UPDATE_ORDER = "FAILED_UPDATE_ORDER";
+export const SUCCESS_UPDATE_ORDER = "SUCCESS_UPDATE_ORDER";
+
+export const updateOrder = (uuid, status, ls) => {
+  console.log(ls);
+  return async (dispatch) => {
+    dispatch(startUpdateOrder());
+    await updateDoc(doc(db, "orders", uuid), {
+      status,
+    })
+      .then(() => {
+        dispatch(successUpdateOrder());
+        dispatch(adminLoadOrders(ls))
+      })
+      .catch(() => dispatch(failedUpdateOrder()));
+  };
+};
+
+export const startUpdateOrder = () => {
+  return {
+    type: START_UPDATE_ORDER,
+  };
+};
+
+export const failedUpdateOrder = (err) => {
+  return {
+    type: FAILED_UPDATE_ORDER,
+    payload: err,
+  };
+};
+
+export const successUpdateOrder = () => {
+  return {
+    type: SUCCESS_UPDATE_ORDER,
   };
 };
