@@ -8,11 +8,11 @@ export const OrderSuccess = (props) => {
   return (
     <div className={s.wrapper}>
       <div className={s.container}>
-        {false ? (
+        {props.loading ? (
           <Loader />
         ) : (
           <div className={s.content}>
-            <div className={s.title}>Order #{15215224685426}</div>
+            <div className={s.title}>Order #{props.id}</div>
             <div className={s.desc}>Accepted, and will be processed soon</div>
             <Link to={"/"} className={s.btn}>OK</Link>
           </div>
@@ -22,7 +22,10 @@ export const OrderSuccess = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+    id: state.order?.uuid,
+    loading: state.order?.loading,
+});
 
 const mapDispatchToProps = (dispatch) => {
   return {};

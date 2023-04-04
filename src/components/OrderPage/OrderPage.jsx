@@ -4,6 +4,7 @@ import { clearCart } from "../../store/header/headerActions";
 import OrderItem from "./OrderItem";
 import s from "./OrderPage.module.css";
 import OrderSuccess from "./OrderSuccess";
+import { userOrdering } from "../../store/order/orderActions";
 
 export const OrderPage = (props) => {
   useEffect(() => {
@@ -196,7 +197,7 @@ export const OrderPage = (props) => {
           className={`${s.btn} ${btnState ? s.btnOk : s.btnNotOk}`}
           onClick={() => {
             if (btnState) {
-              // props.order(userData, props.cartItems);
+              props.order(userData, props.cartItems, props.userUUID);
               setOverlay(true)
             }
           }}
@@ -251,7 +252,6 @@ export const OrderPage = (props) => {
           )}
         </div>
       </section>
-      
     </div>
   );
 };
@@ -260,12 +260,14 @@ const mapStateToProps = (state) => ({
   cartItems: state?.header?.cart.sort((a, b) => a.order - b.order),
   userData: state?.account?.fullData,
   userEmail: state?.account?.data?.email,
+  userUUID: state?.account?.uuid,
+
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    order: (user, products) => {
-      console.log(user, products);
+    order: (user, products, userUUID) => {
+      dispatch(userOrdering(user, products, userUUID))
       dispatch(clearCart());
     },
   };
