@@ -13,13 +13,11 @@ import {
   AiOutlineContacts,
   AiOutlineKey,
   AiOutlineUnorderedList,
-  AiOutlineHeart,
 } from "react-icons/ai";
 import Personalinfo from "./sections/Personalinfo";
 import Mycontacts from "./sections/Mycontacts";
 import Logininfo from "./sections/Logininfo";
 import MyOrders from "./sections/MyOrders";
-import Wishlist from "./sections/Wishlist";
 
 export const UserSetings = (props) => {
   const link = useLocation().pathname.substring(9);
@@ -62,13 +60,6 @@ export const UserSetings = (props) => {
           <AiOutlineUnorderedList />
           My orders
         </Link>
-        <Link
-          className={link === "wishlist" ? s.activeLink : ""}
-          to={"wishlist"}
-        >
-          <AiOutlineHeart />
-          Wishlist
-        </Link>
       </div>
       <div className={s.content}>
         <Routes>
@@ -76,7 +67,6 @@ export const UserSetings = (props) => {
           <Route path="mycontacts" element={<Mycontacts />} />
           <Route path="logininfo" element={<Logininfo />} />
           <Route path="myorders" element={<MyOrders />} />
-          <Route path="wishlist" element={<Wishlist />} />
         </Routes>
       </div>
     </div>

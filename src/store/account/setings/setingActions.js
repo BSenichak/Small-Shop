@@ -5,7 +5,15 @@ import {
   updateEmail,
   updatePassword,
 } from "firebase/auth";
-import { deleteDoc, doc, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  query,
+  updateDoc,
+  where,
+} from "firebase/firestore";
 import { uploadBytes, ref } from "firebase/storage";
 import { auth, db, storage } from "../../../plagins/firebase";
 import { checkLogin } from "../accountActions";
@@ -197,7 +205,7 @@ export const deleteAccount = (password, uid) => {
       deleteUser(auth.currentUser)
         .then(() => dispatch(successDeleteAccout()))
         .catch((err) => dispatch(failedDeleteAccout(err)));
-      deleteDoc(doc(db, "users", uid))
+      deleteDoc(doc(db, "users", uid));
     });
   };
 };
@@ -232,5 +240,48 @@ export const openConfirmWindow = () => {
 export const closeConfirmWindow = () => {
   return {
     type: CLOSE_CONFIRM_WINDOW,
+  };
+};
+
+/* --- USER ORDERS --- */
+
+export const START_USER_LOAD_ORDERS = "START_USER_LOAD_ORDERS";
+export const FAILED_USER_LOAD_ORDERS = "FAILED_USER_LOAD_ORDERS";
+export const SUCCESS_USER_LOAD_ORDERS = "SUCCESS_USER_LOAD_ORDERS";
+
+export const userLoadOrders = (userId) => {
+  return (dispatch) => {
+    dispatch(startUserLoadOrders());
+    const orders = [];
+    getDocs(query(collection(db, "orders"), where("user", "==", userId)))
+      .then((res) => {
+        res.docs.forEach((el) => {
+          let item = el.data();
+          item.uuid = el.id;
+          orders.push(item);
+        });
+        dispatch(successUserLoadOrders(orders));
+      })
+      .catch((err) => dispatch(failedUserLoadOrders(err)));
+  };
+};
+
+export const startUserLoadOrders = () => {
+  return {
+    type: FAILED_USER_LOAD_ORDERS,
+  };
+};
+
+export const successUserLoadOrders = (data) => {
+  return {
+    type: SUCCESS_USER_LOAD_ORDERS,
+    payload: data,
+  };
+};
+
+export const failedUserLoadOrders = (err) => {
+  return {
+    type: START_USER_LOAD_ORDERS,
+    payload: err,
   };
 };
