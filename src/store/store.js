@@ -1,5 +1,5 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
-import logger from "redux-logger"
+// import logger from "redux-logger"
 import thunk from "redux-thunk";
 import accountReducer from "./account/accountReducer";
 import setingsReducer from "./account/setings/setingsReducer";
@@ -26,4 +26,5 @@ const generalReducer = combineReducers({
 })
 
 
-export const store = createStore(generalReducer, applyMiddleware(thunk, logger))
+// export const store = createStore(generalReducer, applyMiddleware(thunk, logger))
+export const store = createStore(generalReducer, applyMiddleware(thunk))

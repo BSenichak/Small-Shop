@@ -57,3 +57,18 @@
         }
     }
 }
+
+@media all and (max-width: 700px){
+    .item .contacts {
+        grid-template-columns: 1fr;
+    }
+    .item .btnBar {
+        justify-content: space-around;
+    }
+    .item select {
+        flex-grow: 1;
+    }
+    .item .btn {
+        flex-grow: 1;
+    }
+}

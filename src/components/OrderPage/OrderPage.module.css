@@ -158,3 +158,21 @@
   color: var(--danger-color);
   cursor: not-allowed;
 }
+
+@media all and (max-width: 700px){
+  .wrapper {
+    padding: 0 1rem;
+  }
+  .wrapper section {
+    grid-template-columns: 1fr;
+  }
+  .info {
+    flex-direction: column;
+  }
+  .sectionTitle {
+    text-align: center;
+  }
+  .title {
+    text-align: center;
+  }
+}

@@ -24,3 +24,14 @@
 .link.actLink {
     background-color: var(--love-color);
 }
+@media all and (max-width: 700px){
+    .Wrapper {
+        grid-template-columns: 1fr;
+    }
+    .aside {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-bottom: 2rem;
+    }
+}

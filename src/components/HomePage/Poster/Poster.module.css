@@ -75,3 +75,22 @@
     width: 3rem;
 }
 
+@media all and (max-width: 700px){
+    .wrapper {
+        height: min-content;
+    }
+    .bg {
+        height: fit-content;
+    }
+    img {
+        object-fit: contain;
+        object-position: center;
+    }
+}
+@media all and (max-width: 400px){
+    .wrapper {
+        display: none;
+    }
+    
+}
+

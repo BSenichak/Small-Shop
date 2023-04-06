@@ -48,6 +48,7 @@ export const Header = (props) => {
           <input
             type="text"
             value={search}
+            placeholder="Search somethink..."
             onChange={(e) => {
               setSearch(e.target.value);
               props.searchChange(e.target.value);

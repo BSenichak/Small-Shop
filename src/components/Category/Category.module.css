@@ -5,7 +5,7 @@ h1 {
 .grid {
   max-width: 1024px;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
   margin: 0 auto;
 }
 
@@ -68,4 +68,10 @@ h1 {
 .sortbtn.active {
 
   background-color: var(--quaternary-background);
+}
+
+@media all and (max-width: 700px){
+  .sortPanel {
+    justify-content: center;
+  }
 }

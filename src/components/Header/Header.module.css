@@ -96,3 +96,28 @@ a.logo {
   text-decoration: none;
   color: var(--primary-color);
 }
+
+
+@media all and (max-width: 700px){
+  .linkBar {
+    display: none;
+  }
+
+  .header {
+    flex-wrap: wrap;
+    height: fit-content;
+  }
+  .logo {
+    flex-basis: 100%;
+    text-align: center;
+  }
+
+  .searchBar {
+    width: 100%;
+  }
+  .btns {
+    width: 100%;
+    justify-content: space-around;
+  }
+}
+

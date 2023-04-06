@@ -17,3 +17,19 @@
   font-size: 5rem;
   line-height: 4rem;
 }
+
+@media all and (max-width: 700px){
+  .wrapper {
+    width: auto;
+    height: auto;
+  }
+
+  .first {
+    font-size: 10rem;
+    line-height: 10rem;
+  }
+  .second {
+    font-size: 3rem;
+  }
+}
+

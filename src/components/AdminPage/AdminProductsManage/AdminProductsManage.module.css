@@ -151,3 +151,12 @@
     grid-column: span 1;
 }
 
+
+@media all and (max-width: 700px){
+    .productWrapper {
+        grid-template-columns: 1fr;
+    }
+    .productWrapper .imgBar {
+        grid-column: auto;
+    }
+}
