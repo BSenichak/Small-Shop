@@ -35,29 +35,29 @@ export const OrderPage = (props) => {
     if (render) {
       setUserData({
         ...userData,
-        fn: props.userData?.firstName,
-        sn: props.userData?.secondName,
-        mn: props.userData?.phoneNumber,
-        city: props.userData?.homeCity,
-        street: props.userData?.homeStreet,
-        houseNumber: props.userData?.homehouse,
-        floorNumber: props.userData?.homeflat,
-        postalCode: props.userData?.postNumber,
-        em: props.userEmail,
+        fn: props.userData?.firstName ?? "",
+        sn: props.userData?.secondName ?? "",
+        mn: props.userData?.phoneNumber ?? "",
+        city: props.userData?.homeCity ?? "",
+        street: props.userData?.homeStreet ?? "",
+        houseNumber: props.userData?.homehouse ?? "",
+        floorNumber: props.userData?.homeflat ?? "",
+        postalCode: props.userData?.postNumber ?? "",
+        em: props.userEmail ?? "",
       });
       setRender(false);
     }
-    if (userData.fn) {
+    if (userData?.fn) {
       if (
-        userData.fn.length > 2 &&
-        userData.sn.length > 2 &&
-        userData.mn.length > 2 &&
-        userData.em.length > 2 &&
-        userData.city.length > 0 &&
-        userData.street.length > 0 &&
-        userData.houseNumber.length > 0 &&
-        userData.floorNumber.length > 0 &&
-        userData.postalCode.length > 4
+        userData?.fn.length > 2 &&
+        userData?.sn.length > 2 &&
+        userData?.mn.length > 2 &&
+        userData?.em.length > 2 &&
+        userData?.city.length > 0 &&
+        userData?.street.length > 0 &&
+        userData?.houseNumber.length > 0 &&
+        userData?.floorNumber.length > 0 &&
+        userData?.postalCode.length > 4
       ) {
         setBtnState(true);
       } else {

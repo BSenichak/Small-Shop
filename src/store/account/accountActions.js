@@ -34,7 +34,6 @@ export const login = (email, password) => {
     dispatch(startLogin());
     signInWithEmailAndPassword(auth, email, password)
       .then((data) => {
-        console.log(data);
         dispatch(successLogin(data));
       })
       .catch((err) => {
