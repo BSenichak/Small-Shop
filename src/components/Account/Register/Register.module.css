@@ -65,3 +65,12 @@
     background-color: var(--success-background);
 }
 
+@media all and (max-width: 700px) {
+    .wrapper {
+        grid-template-columns: 1fr;
+    }
+    .imgBox {
+        display: none;
+    }
+}
+

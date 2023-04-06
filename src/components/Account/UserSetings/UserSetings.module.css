@@ -156,12 +156,19 @@
     height: 2rem;
   }
   .imagebar {
-    grid-template-columns: 1fr;
-    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem 0;
   }
   .imagebar img {
     width: 50%;
     margin: 0 auto;
+  }
+  .imgDesc {
+    width: 100%;
+  }
+  .imgDesc input {
+    width: 100%;
   }
   .namingBar {
     grid-template-columns: 1fr;
