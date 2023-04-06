@@ -55,23 +55,44 @@ a.logo {
   background-color: var(--gray-75);
   padding: 0.1rem 0.5rem;
   width: 40%;
+  position: relative;
 }
 
-.searchBar input {
+
+.input {
   background-color: transparent;
   border: none;
-  color: var(--gray-00);
-  flex-grow: 1;
+  color: var(--primary-color);
+  width: 100%;
 }
 
-.searchBar input:focus {
+.input:focus {
   outline: none;
 }
 
-.searchBar input::placeholder {
-  font-weight: 1000;
+.searchList {
+  position: absolute;
+  width: 100%;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  background-color: var(--quaternary-background);
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
 }
 
-.searchBar svg {
+.searchList > li {
+  padding: 0.25rem 1rem;
   cursor: pointer;
+}
+
+.searchList > li:hover {
+  background-color: var(--love-color);
+}
+
+.searchList li a {
+  text-decoration: none;
+  color: var(--primary-color);
 }

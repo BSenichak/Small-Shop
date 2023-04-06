@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
 import s from "./Header.module.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,9 +8,10 @@ import {
   toggleUserWindowState,
 } from "../../store/header/headerActions";
 import { Link } from "react-router-dom";
-import { BsSun, BsMoon, BsCart3, BsPerson, BsSearch } from "react-icons/bs";
+import { BsSun, BsMoon, BsCart3, BsPerson } from "react-icons/bs";
 import Cart from "./Cart/Cart";
 import UserMenu from "./UserMenu/UserMenu";
+import { adminSearchProduct } from "../../store/admin/adminManageProductsActions";
 
 export const Header = (props) => {
   const dispatch = useDispatch();
@@ -19,6 +20,8 @@ export const Header = (props) => {
   const userWindowState = useSelector((state) => state.header.userWindowState);
   const cartBtn = useRef(null);
   const userBtn = useRef(null);
+  const [search, setSearch] = useState("");
+
   useEffect(() => {
     if (pageTheme === "light") {
       document.body.classList.add("light-palette");
@@ -44,9 +47,18 @@ export const Header = (props) => {
         <div className={s.searchBar}>
           <input
             type="text"
-            placeholder="Write something you would like to find..."
+            value={search}
+            onChange={(e) => {
+              setSearch(e.target.value);
+              props.searchChange(e.target.value);
+            }}
+            className={s.input}
           />
-          <BsSearch />
+          <ul className={s.searchList}>
+            {search !== ""
+              ? props.results.map((el) => <li key={el.id}><Link to={`/product/${el.category}/${el.id}`} onClick={()=>setSearch("")}>{el.name}</Link></li>)
+              : ""}
+          </ul>
         </div>
         <div className={s.btns}>
           <div className={s.btn}>
@@ -58,11 +70,11 @@ export const Header = (props) => {
           </div>
           <div className={s.btn} ref={cartBtn}>
             <BsCart3 onClick={() => dispatch(toggleCartState())} />
-            {cartState && <Cart btn={cartBtn.current}/>}
+            {cartState && <Cart btn={cartBtn.current} />}
           </div>
           <div className={s.btn} ref={userBtn}>
-            <BsPerson onClick={()=>dispatch(toggleUserWindowState())}/>
-            {userWindowState && <UserMenu btn={userBtn.current}/>}
+            <BsPerson onClick={() => dispatch(toggleUserWindowState())} />
+            {userWindowState && <UserMenu btn={userBtn.current} />}
           </div>
         </div>
       </div>
@@ -70,4 +82,14 @@ export const Header = (props) => {
   );
 };
 
-export default connect()(Header);
+const mapStateToProps = (state) => ({
+  results: state?.admin?.searchResults,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    searchChange: (str) => dispatch(adminSearchProduct(str)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
